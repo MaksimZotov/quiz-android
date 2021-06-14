@@ -1,3 +1,14 @@
 <resources>
-    <string name="app_name">quiz-android</string>
+    <string name="app_name">Quiz</string>
+    <string name="enter_your_name">Введите ваше имя</string>
+    <string name="next">Далее</string>
+    <string name="enter_the_name_of_another_player_or_wait_for_invitation">Введите имя соперника или подождите, пока вас не пригласят</string>
+    <string name="your_name">Ваше имя</string>
+    <string name="another_player">Имя соперника</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="do_you_want_to_play_with_user_test">Сыграть с UserTest?</string>
+    <string name="give_answer">Ответить</string>
+    <string name="play_again">Сыграть заново</string>
+    <string name="choose_another_player">Выбрать другого игрока</string>
 </resources>

@@ -1,0 +1,38 @@
+package com.maksimzotov.quiz.model.network
+
+import data.Data
+import data.Exit
+import java.io.ObjectInputStream
+import java.io.ObjectOutputStream
+import java.net.Socket
+
+class Server {
+    private lateinit var clientSocket: Socket
+    private lateinit var output: ObjectOutputStream
+    private lateinit var input: ObjectInputStream
+    private lateinit var sender: Sender
+    private lateinit var reader: Reader
+
+    fun createConnection() {
+        clientSocket = Socket("localhost", 80)
+        output = ObjectOutputStream(clientSocket.getOutputStream())
+        input = ObjectInputStream(clientSocket.getInputStream())
+        sender = Sender(output)
+        reader = Reader(this, input)
+    }
+
+    fun closeConnection() {
+        sender.sendDataToServer(Exit())
+        clientSocket.close()
+        input.close()
+        output.close()
+    }
+
+    fun sendDataToServer(data: Data) {
+        sender.sendDataToServer(data)
+    }
+
+    fun handleDataFromServer(data: Data) {
+        TODO()
+    }
+}

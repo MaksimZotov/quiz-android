@@ -4,11 +4,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.maksimzotov.quiz.R
 import com.maksimzotov.quiz.model.Observer
+import com.maksimzotov.quiz.model.ReceiverFromServer
 import com.maksimzotov.quiz.model.SenderToServer
 import data.AcceptingTheName
 import data.Data
 import data.Name
 import data.RefusalTheName
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class AuthenticationViewModel : ViewModel(), Observer {
     val toastShort: MutableLiveData<String> = MutableLiveData()
@@ -16,9 +20,15 @@ class AuthenticationViewModel : ViewModel(), Observer {
 
     var playerName = ""
 
+    init {
+        ReceiverFromServer.setObserver(this)
+    }
+
     fun setPlayerName() {
-        SenderToServer.createConnection()
-        SenderToServer.sendData(Name(playerName))
+        GlobalScope.launch(Dispatchers.IO) {
+            SenderToServer.createConnection()
+            SenderToServer.sendData(Name(playerName))
+        }
     }
 
     override fun getData(data: Data) {

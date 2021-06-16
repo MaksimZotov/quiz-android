@@ -15,7 +15,7 @@ class Server {
     private lateinit var reader: Reader
 
     fun createConnection() {
-        clientSocket = Socket("localhost", 80)
+        clientSocket = Socket("34.116.177.225", 80)
         output = ObjectOutputStream(clientSocket.getOutputStream())
         input = ObjectInputStream(clientSocket.getInputStream())
         sender = Sender(output)

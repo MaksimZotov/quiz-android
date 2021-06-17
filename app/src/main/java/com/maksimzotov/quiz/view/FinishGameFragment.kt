@@ -1,4 +1,4 @@
-package com.maksimzotov.quiz.view.fragments
+package com.maksimzotov.quiz.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,7 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.maksimzotov.quiz.R
-import com.maksimzotov.quiz.viewmodels.fragments.FinishGameViewModel
+import com.maksimzotov.quiz.viewmodels.FinishGameViewModel
 
 class FinishGameFragment : Fragment() {
     private val viewModel: FinishGameViewModel by viewModels()

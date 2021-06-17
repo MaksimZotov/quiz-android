@@ -1,4 +1,4 @@
-package com.maksimzotov.quiz.viewmodels.fragments
+package com.maksimzotov.quiz.viewmodels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

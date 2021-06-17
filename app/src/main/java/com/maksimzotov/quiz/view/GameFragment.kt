@@ -1,4 +1,4 @@
-package com.maksimzotov.quiz.view.fragments
+package com.maksimzotov.quiz.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,7 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.maksimzotov.quiz.R
-import com.maksimzotov.quiz.viewmodels.fragments.GameViewModel
+import com.maksimzotov.quiz.viewmodels.GameViewModel
 
 class GameFragment : Fragment() {
     private val viewModel: GameViewModel by viewModels()

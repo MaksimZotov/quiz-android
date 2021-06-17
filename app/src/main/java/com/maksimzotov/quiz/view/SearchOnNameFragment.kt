@@ -1,4 +1,4 @@
-package com.maksimzotov.quiz.view.fragments
+package com.maksimzotov.quiz.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,16 +10,16 @@ import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.maksimzotov.quiz.R
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.maksimzotov.quiz.viewmodels.fragments.AuthenticationViewModel
+import com.maksimzotov.quiz.R
+import com.maksimzotov.quiz.viewmodels.SearchOnNameViewModel
 
-class AuthenticationFragment : Fragment() {
-    private val viewModel: AuthenticationViewModel by viewModels()
+class SearchOnNameFragment : Fragment() {
+    private val viewModel: SearchOnNameViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_authentication, container, false)
+        val view = inflater.inflate(R.layout.fragment_search_on_name, container, false)
 
         val toastShort = Observer<String> { message ->  Toast.makeText(activity, message, Toast.LENGTH_SHORT).show() }
         viewModel.toastShort.observe(viewLifecycleOwner, toastShort)
@@ -27,11 +27,11 @@ class AuthenticationFragment : Fragment() {
         val goToFragment = Observer<Int> { id ->  findNavController().navigate(id) }
         viewModel.goToFragment.observe(viewLifecycleOwner, goToFragment)
 
-        val playerName: EditText = view.findViewById(R.id.userName) ?: throw Exception("Incorrect ID")
-        playerName.doAfterTextChanged { viewModel.playerName = playerName.text.toString() }
+        val nameOfAnotherPlayer: EditText = view.findViewById(R.id.nameOfAnotherPlayer) ?: throw Exception("Incorrect ID")
+        nameOfAnotherPlayer.doAfterTextChanged { viewModel.nameOfAnotherPlayer = nameOfAnotherPlayer.text.toString() }
 
-        val buttonNext: Button = view.findViewById(R.id.goToChooseNameOfAnotherPlayer) ?: throw Exception("Incorrect ID")
-        buttonNext.setOnClickListener { viewModel.setPlayerName() }
+        val buttonNext: Button = view.findViewById(R.id.inviteAnotherPlayer) ?: throw Exception("Incorrect ID")
+        buttonNext.setOnClickListener { viewModel.inviteAnotherPlayer() }
 
         return view
     }

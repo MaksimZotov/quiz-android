@@ -1,4 +1,4 @@
-package com.maksimzotov.quiz.viewmodels.fragments
+package com.maksimzotov.quiz.viewmodels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -21,7 +21,7 @@ class SearchOnNameViewModel : ViewModel(), Observer {
                 goToFragment.value = R.id.gameFragment
             }
             is RefusalTheInvitation -> {
-                toastShort.value = "The player ${data.whoInvited} has refused the invitation"
+                toastShort.value = "The player ${data.name} has refused the invitation"
             }
             else -> {
                 throw Exception("Incorrect data for the SearchOnName fragment")

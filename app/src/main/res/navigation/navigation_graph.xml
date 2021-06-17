@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/authenticationFragment"
-        android:name="com.maksimzotov.quiz.view.fragments.AuthenticationFragment"
+        android:name="com.maksimzotov.quiz.view.AuthenticationFragment"
         android:label="AuthenticationFragment"
         tools:layout="@layout/fragment_authentication">
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/searchOnNameFragment"
-        android:name="com.maksimzotov.quiz.view.fragments.SearchOnNameFragment"
+        android:name="com.maksimzotov.quiz.view.SearchOnNameFragment"
         android:label="SearchOnNameFragment"
         tools:layout="@layout/fragment_search_on_name" >
         <action
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/gameFragment"
-        android:name="com.maksimzotov.quiz.view.fragments.GameFragment"
+        android:name="com.maksimzotov.quiz.view.GameFragment"
         android:label="GameFragment"
         tools:layout="@layout/fragment_game" >
         <action
@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/finishGameFragment"
-        android:name="com.maksimzotov.quiz.view.fragments.FinishGameFragment"
+        android:name="com.maksimzotov.quiz.view.FinishGameFragment"
         android:label="FinishGameFragment"
         tools:layout="@layout/fragment_finish_game" >
         <action

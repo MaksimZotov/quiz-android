@@ -1,4 +1,4 @@
-package com.maksimzotov.quiz.view
+package com.maksimzotov.quiz.view.mainactivity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

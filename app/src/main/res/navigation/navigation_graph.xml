@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_searchOnNameFragment_to_authenticationFragment"
             app:destination="@id/authenticationFragment" />
+        <action
+            android:id="@+id/action_searchOnNameFragment_to_invitationToPlayFragment"
+            app:destination="@id/invitationToPlayFragment" />
     </fragment>
     <fragment
         android:id="@+id/gameFragment"
@@ -46,5 +49,14 @@
         <action
             android:id="@+id/action_finishGameFragment_to_searchOnNameFragment"
             app:destination="@id/searchOnNameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/invitationToPlayFragment"
+        android:name="com.maksimzotov.quiz.view.InvitationToPlayFragment"
+        android:label="fragment_invitation_to_play"
+        tools:layout="@layout/fragment_invitation_to_play" >
+        <action
+            android:id="@+id/action_invitationToPlayFragment_to_gameFragment"
+            app:destination="@id/gameFragment" />
     </fragment>
 </navigation>

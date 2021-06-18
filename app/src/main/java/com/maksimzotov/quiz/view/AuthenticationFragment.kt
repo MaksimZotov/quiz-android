@@ -4,10 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
-import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -27,8 +24,9 @@ class AuthenticationFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         observeDataFromServer()
         val binding: FragmentAuthenticationBinding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_authentication, container, false
+                inflater, R.layout.fragment_authentication, container, false
         )
+        binding.viewModel = viewModel
         return binding.root
     }
 

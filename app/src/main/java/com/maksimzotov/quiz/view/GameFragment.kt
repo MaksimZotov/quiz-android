@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -27,6 +28,14 @@ class GameFragment : Fragment() {
         )
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+
+        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                viewModel.leaveGame()
+                findNavController().navigate(R.id.searchOnNameFragment)
+            }
+        })
+
         return binding.root
     }
 

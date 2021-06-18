@@ -29,7 +29,6 @@ class AuthenticationFragment : Fragment() {
         val binding: FragmentAuthenticationBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_authentication, container, false
         )
-        binding.lifecycleOwner = this
         return binding.root
     }
 

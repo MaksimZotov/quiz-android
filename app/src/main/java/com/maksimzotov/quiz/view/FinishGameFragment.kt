@@ -25,7 +25,6 @@ class FinishGameFragment : Fragment() {
         val binding: FragmentAuthenticationBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_search_on_name, container, false
         )
-        binding.lifecycleOwner = this
         return binding.root
     }
 

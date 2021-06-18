@@ -3,10 +3,7 @@ package com.maksimzotov.quiz.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.maksimzotov.quiz.R
-import com.maksimzotov.quiz.model.appstate.AppState
 import com.maksimzotov.quiz.model.communication.Observer
-import com.maksimzotov.quiz.model.communication.ReceiverFromServer
 import com.maksimzotov.quiz.model.communication.SenderToServer
 import data.*
 import kotlinx.coroutines.Dispatchers
@@ -35,17 +32,13 @@ class GameViewModel : ViewModel(), Observer {
         }
     }
 
-    val toastShort: MutableLiveData<String> = MutableLiveData()
-    val goToFragment: MutableLiveData<Int> = MutableLiveData()
 
-    val question: MutableLiveData<String> = MutableLiveData()
-    val firstAnswer: MutableLiveData<String> = MutableLiveData()
-    val secondAnswer: MutableLiveData<String> = MutableLiveData()
-    val thirdAnswer: MutableLiveData<String> = MutableLiveData()
-
-    val remainingTime: MutableLiveData<Double> = MutableLiveData()
-
-    val scorePair: MutableLiveData<Pair<Int, Int>> = MutableLiveData()
+    val question: MutableLiveData<String> = MutableLiveData("question")
+    val firstAnswer: MutableLiveData<String> = MutableLiveData("firstAnswer")
+    val secondAnswer: MutableLiveData<String> = MutableLiveData("secondAnswer")
+    val thirdAnswer: MutableLiveData<String> = MutableLiveData("thirdAnswer")
+    val remainingTime: MutableLiveData<String> = MutableLiveData("Time: 0")
+    val score: MutableLiveData<String> = MutableLiveData("0/0")
 
     private var indexOfCorrectAnswer = -2
 
@@ -59,13 +52,10 @@ class GameViewModel : ViewModel(), Observer {
                 indexOfCorrectAnswer = data.indexOfCorrectAnswer
             }
             is RemainingTime -> {
-                remainingTime.value = data.time
+                remainingTime.value = data.time.toString()
             }
             is Score -> {
-                scorePair.value = data.player to data.anotherPlayer
-            }
-            is FinishTheGame -> {
-                goToFragment.value = R.id.finishGameFragment
+                score.value = "Score: ${data.player} to ${data.anotherPlayer}"
             }
             else -> {
                 _data.value = data

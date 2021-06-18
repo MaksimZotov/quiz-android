@@ -8,11 +8,13 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.maksimzotov.quiz.R
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.maksimzotov.quiz.databinding.FragmentAuthenticationBinding
 import com.maksimzotov.quiz.model.communication.ReceiverFromServer
 import com.maksimzotov.quiz.viewmodels.AuthenticationViewModel
 import data.AcceptingTheName
@@ -23,20 +25,12 @@ class AuthenticationFragment : Fragment() {
     private val viewModel: AuthenticationViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_authentication, container, false)
-
-        val playerName: EditText = view.findViewById(R.id.userName) ?: throw Exception("Incorrect ID")
-        playerName.doAfterTextChanged { viewModel.playerName = playerName.text.toString() }
-
-        val buttonNext: Button = view.findViewById(R.id.goToChooseNameOfAnotherPlayer) ?: throw Exception("Incorrect ID")
-        buttonNext.setOnClickListener { viewModel.sendPlayerName() }
-
-        return view
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         observeDataFromServer()
+        val binding: FragmentAuthenticationBinding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_authentication, container, false
+        )
+        binding.lifecycleOwner = this
+        return binding.root
     }
 
     private fun observeDataFromServer() {

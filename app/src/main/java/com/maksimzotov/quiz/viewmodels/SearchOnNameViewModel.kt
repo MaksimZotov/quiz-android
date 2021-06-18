@@ -24,7 +24,7 @@ class SearchOnNameViewModel : ViewModel(), Observer {
     }
 
     fun inviteAnotherPlayer() {
-        AppState.nameOfAnotherPlayer = AppState.nameOfAnotherPlayer
+        AppState.nameOfAnotherPlayer = nameOfAnotherPlayer
         GlobalScope.launch(Dispatchers.IO) {
             SenderToServer.sendData(Invitation(AppState.nameOfAnotherPlayer))
         }

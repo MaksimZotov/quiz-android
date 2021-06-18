@@ -1,6 +1,6 @@
 package com.maksimzotov.quiz.model.network
 
-import com.maksimzotov.quiz.model.ReceiverFromServer
+import com.maksimzotov.quiz.model.communication.ReceiverFromServer
 import data.Data
 import data.Exit
 import java.io.ObjectInputStream

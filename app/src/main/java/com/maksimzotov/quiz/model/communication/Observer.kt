@@ -1,4 +1,4 @@
-package com.maksimzotov.quiz.model
+package com.maksimzotov.quiz.model.communication
 
 import data.Data
 

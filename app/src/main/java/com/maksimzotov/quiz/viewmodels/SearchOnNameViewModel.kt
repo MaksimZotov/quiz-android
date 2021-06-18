@@ -1,31 +1,36 @@
 package com.maksimzotov.quiz.viewmodels
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.maksimzotov.quiz.R
-import com.maksimzotov.quiz.model.Observer
-import com.maksimzotov.quiz.model.SenderToServer
+import com.maksimzotov.quiz.model.appstate.AppState
+import com.maksimzotov.quiz.model.communication.Observer
+import com.maksimzotov.quiz.model.communication.ReceiverFromServer
+import com.maksimzotov.quiz.model.communication.SenderToServer
 import data.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class SearchOnNameViewModel : ViewModel(), Observer {
-    val toastShort: MutableLiveData<String> = MutableLiveData()
-    val goToFragment: MutableLiveData<Int> = MutableLiveData()
+    private val _data: MutableLiveData<Data> = MutableLiveData()
+    val data: LiveData<Data> = _data
 
     var nameOfAnotherPlayer = ""
 
-    fun inviteAnotherPlayer() = SenderToServer.sendData(Invitation(nameOfAnotherPlayer))
+    fun handleInvitation(name: String) {
+        AppState.nameOfAnotherPlayer = name
+    }
+
+    fun inviteAnotherPlayer() {
+        AppState.nameOfAnotherPlayer = AppState.nameOfAnotherPlayer
+        GlobalScope.launch(Dispatchers.IO) {
+            SenderToServer.sendData(Invitation(AppState.nameOfAnotherPlayer))
+        }
+    }
 
     override fun getData(data: Data) {
-        when (data) {
-            is PlayTheGame -> {
-                goToFragment.value = R.id.gameFragment
-            }
-            is RefusalTheInvitation -> {
-                toastShort.value = "The player ${data.name} has refused the invitation"
-            }
-            else -> {
-                throw Exception("Incorrect data for the SearchOnName fragment")
-            }
-        }
+        _data.value = data
     }
 }

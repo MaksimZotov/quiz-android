@@ -1,11 +1,13 @@
 package com.maksimzotov.quiz.viewmodels
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.maksimzotov.quiz.R
-import com.maksimzotov.quiz.model.Observer
-import com.maksimzotov.quiz.model.ReceiverFromServer
-import com.maksimzotov.quiz.model.SenderToServer
+import com.maksimzotov.quiz.model.appstate.AppState
+import com.maksimzotov.quiz.model.communication.Observer
+import com.maksimzotov.quiz.model.communication.ReceiverFromServer
+import com.maksimzotov.quiz.model.communication.SenderToServer
 import data.AcceptingTheName
 import data.Data
 import data.Name
@@ -15,33 +17,20 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class AuthenticationViewModel : ViewModel(), Observer {
-    val toastShort: MutableLiveData<String> = MutableLiveData()
-    val goToFragment: MutableLiveData<Int> = MutableLiveData()
+    private val _data: MutableLiveData<Data> = MutableLiveData()
+    val data: LiveData<Data> = _data
 
     var playerName = ""
 
-    init {
-        ReceiverFromServer.setObserver(this)
-    }
-
-    fun setPlayerName() {
+    fun sendPlayerName() {
+        AppState.playerName = playerName
         GlobalScope.launch(Dispatchers.IO) {
             SenderToServer.createConnection()
-            SenderToServer.sendData(Name(playerName))
+            SenderToServer.sendData(Name(AppState.playerName))
         }
     }
 
     override fun getData(data: Data) {
-        when (data) {
-            is RefusalTheName -> {
-                toastShort.value = "The name ${data.name} is taken"
-            }
-            is AcceptingTheName -> {
-                goToFragment.value = R.id.searchOnNameFragment
-            }
-            else -> {
-                throw Exception("Incorrect data for the Authentication fragment")
-            }
-        }
+        _data.value = data
     }
 }

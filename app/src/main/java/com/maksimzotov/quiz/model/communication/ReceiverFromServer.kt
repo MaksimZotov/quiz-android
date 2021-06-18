@@ -1,4 +1,4 @@
-package com.maksimzotov.quiz.model
+package com.maksimzotov.quiz.model.communication
 
 import android.os.Handler
 import android.os.Looper

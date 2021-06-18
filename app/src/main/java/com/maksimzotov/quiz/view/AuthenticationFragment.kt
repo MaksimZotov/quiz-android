@@ -13,7 +13,11 @@ import androidx.fragment.app.viewModels
 import com.maksimzotov.quiz.R
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.maksimzotov.quiz.model.communication.ReceiverFromServer
 import com.maksimzotov.quiz.viewmodels.AuthenticationViewModel
+import data.AcceptingTheName
+import data.Data
+import data.RefusalTheName
 
 class AuthenticationFragment : Fragment() {
     private val viewModel: AuthenticationViewModel by viewModels()
@@ -21,18 +25,35 @@ class AuthenticationFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_authentication, container, false)
 
-        val toastShort = Observer<String> { message ->  Toast.makeText(activity, message, Toast.LENGTH_SHORT).show() }
-        viewModel.toastShort.observe(viewLifecycleOwner, toastShort)
-
-        val goToFragment = Observer<Int> { id ->  findNavController().navigate(id) }
-        viewModel.goToFragment.observe(viewLifecycleOwner, goToFragment)
-
         val playerName: EditText = view.findViewById(R.id.userName) ?: throw Exception("Incorrect ID")
         playerName.doAfterTextChanged { viewModel.playerName = playerName.text.toString() }
 
         val buttonNext: Button = view.findViewById(R.id.goToChooseNameOfAnotherPlayer) ?: throw Exception("Incorrect ID")
-        buttonNext.setOnClickListener { viewModel.setPlayerName() }
+        buttonNext.setOnClickListener { viewModel.sendPlayerName() }
 
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        observeDataFromServer()
+    }
+
+    private fun observeDataFromServer() {
+        ReceiverFromServer.setObserver(viewModel)
+        val dataObserver = Observer<Data> { data ->
+            when (data) {
+                is RefusalTheName -> {
+                    Toast.makeText(activity, "The name ${data.name} is taken", Toast.LENGTH_SHORT).show()
+                }
+                is AcceptingTheName -> {
+                    findNavController().navigate(R.id.searchOnNameFragment)
+                }
+                else -> {
+                    throw Exception("Incorrect data for the Authentication fragment")
+                }
+            }
+        }
+        viewModel.data.observe(viewLifecycleOwner, dataObserver)
     }
 }

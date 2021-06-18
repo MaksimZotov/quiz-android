@@ -1,13 +1,22 @@
 package com.maksimzotov.quiz.viewmodels
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.maksimzotov.quiz.R
-import com.maksimzotov.quiz.model.Observer
-import com.maksimzotov.quiz.model.SenderToServer
+import com.maksimzotov.quiz.model.appstate.AppState
+import com.maksimzotov.quiz.model.communication.Observer
+import com.maksimzotov.quiz.model.communication.ReceiverFromServer
+import com.maksimzotov.quiz.model.communication.SenderToServer
 import data.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class GameViewModel : ViewModel(), Observer {
+    private val _data: MutableLiveData<Data> = MutableLiveData()
+    val data: LiveData<Data> = _data
+
     private var indexOfAnswer = -1
 
     fun setAnswer(indexOfAnswer: Int) {
@@ -15,9 +24,16 @@ class GameViewModel : ViewModel(), Observer {
     }
 
     fun giveAnswer() {
-        SenderToServer.sendData(Answer(indexOfAnswer))
+        GlobalScope.launch(Dispatchers.IO) {
+            SenderToServer.sendData(Answer(indexOfAnswer))
+        }
     }
 
+    fun leaveGame() {
+        GlobalScope.launch(Dispatchers.IO) {
+            SenderToServer.sendData(LeavingTheGame())
+        }
+    }
 
     val toastShort: MutableLiveData<String> = MutableLiveData()
     val goToFragment: MutableLiveData<Int> = MutableLiveData()
@@ -52,7 +68,7 @@ class GameViewModel : ViewModel(), Observer {
                 goToFragment.value = R.id.finishGameFragment
             }
             else -> {
-                throw Exception("Incorrect data for the Game fragment")
+                _data.value = data
             }
         }
     }

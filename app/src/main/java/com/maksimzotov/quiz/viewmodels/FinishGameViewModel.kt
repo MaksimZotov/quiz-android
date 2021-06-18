@@ -1,37 +1,36 @@
 package com.maksimzotov.quiz.viewmodels
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.maksimzotov.quiz.model.Observer
-import com.maksimzotov.quiz.model.SenderToServer
+import com.maksimzotov.quiz.model.communication.Observer
+import com.maksimzotov.quiz.model.communication.ReceiverFromServer
+import com.maksimzotov.quiz.model.communication.SenderToServer
 import data.Data
 import data.RefusalToPlayAgain
 import data.PlayTheGame
 import data.RequestToPlayAgain
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class FinishGameViewModel : ViewModel(), Observer {
-    val toastShort: MutableLiveData<String> = MutableLiveData()
-    lateinit var popBackStack: () -> Unit
+    private val _data: MutableLiveData<Data> = MutableLiveData()
+    val data: LiveData<Data> = _data
 
     fun chooseAnotherPlayer() {
-        SenderToServer.sendData(RefusalToPlayAgain())
-        popBackStack()
+        GlobalScope.launch(Dispatchers.IO) {
+            SenderToServer.sendData(RefusalToPlayAgain())
+        }
     }
 
     fun playAgain() {
-        SenderToServer.sendData(RequestToPlayAgain())
+        GlobalScope.launch(Dispatchers.IO) {
+            SenderToServer.sendData(RequestToPlayAgain())
+        }
     }
 
     override fun getData(data: Data) {
-        when (data) {
-            is PlayTheGame -> {
-                popBackStack()
-            }
-            is RefusalToPlayAgain -> {
-                toastShort.value = "Another player doesn't want to play again"
-                popBackStack()
-                popBackStack()
-            }
-        }
+        _data.value = data
     }
 }

@@ -7,12 +7,16 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.maksimzotov.quiz.R
+import com.maksimzotov.quiz.model.appstate.AppState
+import com.maksimzotov.quiz.model.communication.ReceiverFromServer
 import com.maksimzotov.quiz.viewmodels.GameViewModel
+import data.*
 
 class GameFragment : Fragment() {
     private val viewModel: GameViewModel by viewModels()
@@ -25,6 +29,14 @@ class GameFragment : Fragment() {
 
         val goToFragment = Observer<Int> { id ->  findNavController().navigate(id) }
         viewModel.goToFragment.observe(viewLifecycleOwner, goToFragment)
+
+
+        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().popBackStack()
+                viewModel.leaveGame()
+            }
+        })
 
 
         val buttonAnswer0: Button = view.findViewById(R.id.answer0) ?: throw Exception("Incorrect ID")
@@ -64,5 +76,26 @@ class GameFragment : Fragment() {
         viewModel.scorePair.observe(viewLifecycleOwner, scorePair)
 
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        observeDataFromServer()
+    }
+
+    private fun observeDataFromServer() {
+        ReceiverFromServer.setObserver(viewModel)
+        val dataObserver = Observer<Data> { data ->
+            when (data) {
+                is LeavingTheGame -> {
+                    Toast.makeText(activity, "The player \"${AppState.nameOfAnotherPlayer}\" has left the game", Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(R.id.searchOnNameFragment)
+                }
+                else -> {
+                    throw Exception("Incorrect data for the Game fragment")
+                }
+            }
+        }
+        viewModel.data.observe(viewLifecycleOwner, dataObserver)
     }
 }

@@ -1,29 +1,37 @@
 package com.maksimzotov.quiz.viewmodels
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.maksimzotov.quiz.model.Observer
-import com.maksimzotov.quiz.model.SenderToServer
-import data.AcceptingTheInvitation
-import data.Data
-import data.Invitation
-import data.RefusalTheInvitation
+import com.maksimzotov.quiz.R
+import com.maksimzotov.quiz.model.appstate.AppState
+import com.maksimzotov.quiz.model.communication.Observer
+import com.maksimzotov.quiz.model.communication.ReceiverFromServer
+import com.maksimzotov.quiz.model.communication.SenderToServer
+import data.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class InvitationToPlayViewModel : ViewModel(), Observer {
-    lateinit var nameOfAnotherPlayer: String
+    private val _data: MutableLiveData<Data> = MutableLiveData()
+    val data: LiveData<Data> = _data
+
+    val nameOfAnotherPlayer = AppState.nameOfAnotherPlayer
 
     fun acceptTheInvitation() {
-        SenderToServer.sendData(AcceptingTheInvitation(nameOfAnotherPlayer))
+        GlobalScope.launch(Dispatchers.IO) {
+            SenderToServer.sendData(AcceptingTheInvitation(nameOfAnotherPlayer))
+        }
     }
 
     fun refuseTheInvitation() {
-        SenderToServer.sendData(RefusalTheInvitation(nameOfAnotherPlayer))
+        GlobalScope.launch(Dispatchers.IO) {
+            SenderToServer.sendData(RefusalTheInvitation(nameOfAnotherPlayer))
+        }
     }
 
     override fun getData(data: Data) {
-        when (data) {
-            is Invitation -> {
-                nameOfAnotherPlayer = data.name
-            }
-        }
+        _data.value = data
     }
 }

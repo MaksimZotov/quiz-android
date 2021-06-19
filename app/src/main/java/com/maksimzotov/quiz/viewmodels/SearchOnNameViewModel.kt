@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.maksimzotov.quiz.R
+import com.maksimzotov.quiz.SingleLiveData
 import com.maksimzotov.quiz.model.appstate.AppState
 import com.maksimzotov.quiz.model.communication.Observer
 import com.maksimzotov.quiz.model.communication.ReceiverFromServer
@@ -14,8 +15,8 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class SearchOnNameViewModel : ViewModel(), Observer {
-    private val _data: MutableLiveData<Data> = MutableLiveData()
-    val data: LiveData<Data> = _data
+    private val _data: SingleLiveData<Data> = SingleLiveData()
+    val data = this._data
 
     var nameOfAnotherPlayer = ""
 

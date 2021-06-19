@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.maksimzotov.quiz.viewmodels.SearchOnNameViewModel" />
+            type="com.maksimzotov.quiz.viewmodel.SearchOnNameViewModel" />
     </data>
 
     <FrameLayout

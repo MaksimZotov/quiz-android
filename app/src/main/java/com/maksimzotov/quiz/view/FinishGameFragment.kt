@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.maksimzotov.quiz.R
 import com.maksimzotov.quiz.databinding.FragmentFinishGameBinding
 import com.maksimzotov.quiz.model.communication.ReceiverFromServer
-import com.maksimzotov.quiz.viewmodels.FinishGameViewModel
+import com.maksimzotov.quiz.viewmodel.FinishGameViewModel
 import data.*
 
 class FinishGameFragment : Fragment() {

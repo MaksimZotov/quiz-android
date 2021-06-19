@@ -1,4 +1,4 @@
-package com.maksimzotov.quiz.viewmodels
+package com.maksimzotov.quiz.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -15,7 +15,7 @@ import com.maksimzotov.quiz.R
 import com.maksimzotov.quiz.databinding.FragmentGameBinding
 import com.maksimzotov.quiz.model.appstate.AppState
 import com.maksimzotov.quiz.model.communication.ReceiverFromServer
-import com.maksimzotov.quiz.viewmodels.GameViewModel
+import com.maksimzotov.quiz.viewmodel.GameViewModel
 import data.*
 
 class GameFragment : Fragment() {

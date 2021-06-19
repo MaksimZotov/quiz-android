@@ -12,7 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.maksimzotov.quiz.R
 import com.maksimzotov.quiz.databinding.FragmentInvitationToPlayBinding
 import com.maksimzotov.quiz.model.communication.ReceiverFromServer
-import com.maksimzotov.quiz.viewmodels.InvitationToPlayViewModel
+import com.maksimzotov.quiz.viewmodel.InvitationToPlayViewModel
 import data.Data
 import data.PlayTheGame
 

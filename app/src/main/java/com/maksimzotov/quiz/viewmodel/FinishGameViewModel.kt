@@ -1,33 +1,30 @@
-package com.maksimzotov.quiz.viewmodels
+package com.maksimzotov.quiz.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.maksimzotov.quiz.R
-import com.maksimzotov.quiz.model.appstate.AppState
 import com.maksimzotov.quiz.model.communication.Observer
-import com.maksimzotov.quiz.model.communication.ReceiverFromServer
 import com.maksimzotov.quiz.model.communication.SenderToServer
-import data.*
+import data.Data
+import data.RefusalToPlayAgain
+import data.RequestToPlayAgain
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class InvitationToPlayViewModel : ViewModel(), Observer {
+class FinishGameViewModel : ViewModel(), Observer {
     private val _data: MutableLiveData<Data> = MutableLiveData()
     val data: LiveData<Data> = _data
 
-    val nameOfAnotherPlayer = AppState.nameOfAnotherPlayer
-
-    fun acceptTheInvitation() {
+    fun chooseAnotherPlayer() {
         GlobalScope.launch(Dispatchers.IO) {
-            SenderToServer.sendData(AcceptingTheInvitation(nameOfAnotherPlayer))
+            SenderToServer.sendData(RefusalToPlayAgain())
         }
     }
 
-    fun refuseTheInvitation() {
+    fun playAgain() {
         GlobalScope.launch(Dispatchers.IO) {
-            SenderToServer.sendData(RefusalTheInvitation(nameOfAnotherPlayer))
+            SenderToServer.sendData(RequestToPlayAgain())
         }
     }
 

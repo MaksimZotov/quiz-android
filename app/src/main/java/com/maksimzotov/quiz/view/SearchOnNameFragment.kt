@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.maksimzotov.quiz.R
 import com.maksimzotov.quiz.databinding.FragmentSearchOnNameBinding
 import com.maksimzotov.quiz.model.communication.ReceiverFromServer
-import com.maksimzotov.quiz.viewmodels.SearchOnNameViewModel
+import com.maksimzotov.quiz.viewmodel.SearchOnNameViewModel
 import data.*
 
 class SearchOnNameFragment : Fragment() {

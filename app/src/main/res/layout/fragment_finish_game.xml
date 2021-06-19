@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.maksimzotov.quiz.viewmodels.FinishGameViewModel" />
+            type="com.maksimzotov.quiz.viewmodel.FinishGameViewModel" />
     </data>
 
     <FrameLayout

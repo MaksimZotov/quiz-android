@@ -13,7 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.maksimzotov.quiz.databinding.FragmentAuthenticationBinding
 import com.maksimzotov.quiz.model.communication.ReceiverFromServer
-import com.maksimzotov.quiz.viewmodels.AuthenticationViewModel
+import com.maksimzotov.quiz.viewmodel.AuthenticationViewModel
 import data.AcceptingTheName
 import data.Data
 import data.RefusalTheName

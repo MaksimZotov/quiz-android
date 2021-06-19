@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.maksimzotov.quiz.viewmodels.InvitationToPlayViewModel" />
+            type="com.maksimzotov.quiz.viewmodel.InvitationToPlayViewModel" />
     </data>
 
     <FrameLayout

@@ -1,4 +1,4 @@
-package com.maksimzotov.quiz
+package com.maksimzotov.quiz.util
 
 import androidx.annotation.MainThread
 import androidx.lifecycle.LifecycleOwner

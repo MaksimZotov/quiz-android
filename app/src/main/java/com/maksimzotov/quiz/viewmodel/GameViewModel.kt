@@ -1,18 +1,18 @@
 package com.maksimzotov.quiz.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.maksimzotov.quiz.model.communication.Observer
 import com.maksimzotov.quiz.model.communication.SenderToServer
+import com.maksimzotov.quiz.util.SingleLiveData
 import data.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class GameViewModel : ViewModel(), Observer {
-    private val _data: MutableLiveData<Data> = MutableLiveData()
-    val data: LiveData<Data> = _data
+    private val _data: SingleLiveData<Data> = SingleLiveData()
+    val data: SingleLiveData<Data> = _data
 
     private var indexOfAnswer = -1
 
@@ -37,7 +37,7 @@ class GameViewModel : ViewModel(), Observer {
     val firstAnswer: MutableLiveData<String> = MutableLiveData("firstAnswer")
     val secondAnswer: MutableLiveData<String> = MutableLiveData("secondAnswer")
     val thirdAnswer: MutableLiveData<String> = MutableLiveData("thirdAnswer")
-    val remainingTime: MutableLiveData<String> = MutableLiveData("Time: 0")
+    val remainingTime: MutableLiveData<String> = MutableLiveData("")
     val score: MutableLiveData<String> = MutableLiveData("0/0")
 
     private var indexOfCorrectAnswer = -2
@@ -52,10 +52,10 @@ class GameViewModel : ViewModel(), Observer {
                 indexOfCorrectAnswer = data.indexOfCorrectAnswer
             }
             is RemainingTime -> {
-                remainingTime.value = "Time: ${data.time}"
+                remainingTime.value = data.time.toString()
             }
             is Score -> {
-                score.value = "Score: ${data.player} to ${data.anotherPlayer}"
+                score.value = "${data.player}/${data.anotherPlayer}"
             }
             else -> {
                 _data.value = data

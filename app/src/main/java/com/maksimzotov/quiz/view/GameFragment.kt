@@ -27,12 +27,16 @@ class GameFragment : Fragment() {
                 inflater, R.layout.fragment_game, container, false
         )
         binding.viewModel = viewModel
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
 
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 viewModel.leaveGame()
-                findNavController().navigate(R.id.searchOnNameFragment)
+                val navController = findNavController()
+                navController.popBackStack()
+                if (!AppState.playerInvited) {
+                    navController.popBackStack()
+                }
             }
         })
 

@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.maksimzotov.quiz.R
 import com.maksimzotov.quiz.databinding.FragmentSearchOnNameBinding
+import com.maksimzotov.quiz.model.appstate.AppState
 import com.maksimzotov.quiz.model.communication.ReceiverFromServer
 import com.maksimzotov.quiz.viewmodel.SearchOnNameViewModel
 import data.*
@@ -37,6 +38,7 @@ class SearchOnNameFragment : Fragment() {
                     findNavController().navigate(R.id.invitationToPlayFragment)
                 }
                 is PlayTheGame -> {
+                    AppState.playerInvited = true
                     findNavController().navigate(R.id.gameFragment)
                 }
                 is RefusalTheInvitation -> {

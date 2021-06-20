@@ -52,7 +52,7 @@ class GameViewModel : ViewModel(), Observer {
                 indexOfCorrectAnswer = data.indexOfCorrectAnswer
             }
             is RemainingTime -> {
-                remainingTime.value = data.time.toString()
+                remainingTime.value = "Time: ${data.time}"
             }
             is Score -> {
                 score.value = "Score: ${data.player} to ${data.anotherPlayer}"

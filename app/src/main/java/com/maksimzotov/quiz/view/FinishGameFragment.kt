@@ -31,13 +31,19 @@ class FinishGameFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 viewModel.chooseAnotherPlayer()
-                findNavController().popBackStack()
-                findNavController().popBackStack()
+                val navController = findNavController()
+                navController.popBackStack()
+                navController.popBackStack()
             }
         })
 
         val buttonRefuseToPlayAgain = binding.root.findViewById<Button>(R.id.chooseAnotherPlayerAfterFinish)
-        buttonRefuseToPlayAgain.setOnClickListener { findNavController().popBackStack() }
+        buttonRefuseToPlayAgain.setOnClickListener {
+            viewModel.chooseAnotherPlayer()
+            val navController = findNavController()
+            navController.popBackStack()
+            navController.popBackStack()
+        }
 
         return binding.root
     }

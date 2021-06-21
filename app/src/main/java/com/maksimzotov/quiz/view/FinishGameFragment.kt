@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -25,6 +26,15 @@ class FinishGameFragment : Fragment() {
                 inflater, R.layout.fragment_finish_game, container, false
         )
         binding.viewModel = viewModel
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                viewModel.chooseAnotherPlayer()
+                findNavController().popBackStack()
+                findNavController().popBackStack()
+            }
+        })
+
         return binding.root
     }
 
@@ -40,6 +50,9 @@ class FinishGameFragment : Fragment() {
                     val navController = findNavController()
                     navController.popBackStack()
                     navController.popBackStack()
+                }
+                else -> {
+                    throw Exception("Incorrect data for the FinishGame fragment")
                 }
             }
         }

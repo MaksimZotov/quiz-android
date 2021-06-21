@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -26,6 +27,14 @@ class SearchOnNameFragment : Fragment() {
                 inflater, R.layout.fragment_search_on_name, container, false
         )
         binding.viewModel = viewModel
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                viewModel.changeName()
+                findNavController().popBackStack()
+            }
+        })
+
         return binding.root
     }
 

@@ -21,6 +21,10 @@ class SearchOnNameViewModel : ViewModel(), Observer {
         SenderToServer.sendData(Invitation(AppState.nameOfAnotherPlayer))
     }
 
+    fun changeName() {
+        SenderToServer.sendData(NameChange())
+    }
+
     override fun getData(data: Data) {
         this.data.value = data
     }

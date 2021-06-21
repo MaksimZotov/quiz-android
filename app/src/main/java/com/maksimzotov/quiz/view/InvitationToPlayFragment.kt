@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -26,6 +27,14 @@ class InvitationToPlayFragment : Fragment() {
                 inflater, R.layout.fragment_invitation_to_play, container, false
         )
         binding.viewModel = viewModel
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                viewModel.refuseTheInvitation()
+                findNavController().popBackStack()
+            }
+        })
+
         return binding.root
     }
 

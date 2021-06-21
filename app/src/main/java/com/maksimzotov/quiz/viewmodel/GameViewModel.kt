@@ -11,8 +11,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class GameViewModel : ViewModel(), Observer {
-    private val _data: SingleLiveData<Data> = SingleLiveData()
-    val data: SingleLiveData<Data> = _data
+    val data = SingleLiveData<Data>()
 
     private var indexOfAnswer = -1
 
@@ -58,7 +57,7 @@ class GameViewModel : ViewModel(), Observer {
                 score.value = "${data.player}/${data.anotherPlayer}"
             }
             else -> {
-                _data.value = data
+                this.data.value = data
             }
         }
     }

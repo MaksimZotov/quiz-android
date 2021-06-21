@@ -12,8 +12,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class AuthenticationViewModel : ViewModel(), Observer {
-    private val _data: SingleLiveData<Data> = SingleLiveData()
-    val data = this._data
+    val data = SingleLiveData<Data>()
 
     var playerName = ""
 
@@ -26,6 +25,6 @@ class AuthenticationViewModel : ViewModel(), Observer {
     }
 
     override fun getData(data: Data) {
-        _data.value = data
+        this.data.value = data
     }
 }

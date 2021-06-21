@@ -1,10 +1,9 @@
 package com.maksimzotov.quiz.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.maksimzotov.quiz.model.communication.Observer
 import com.maksimzotov.quiz.model.communication.SenderToServer
+import com.maksimzotov.quiz.util.SingleLiveData
 import data.Data
 import data.RefusalToPlayAgain
 import data.RequestToPlayAgain
@@ -13,8 +12,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class FinishGameViewModel : ViewModel(), Observer {
-    private val _data: MutableLiveData<Data> = MutableLiveData()
-    val data: LiveData<Data> = _data
+    val data = SingleLiveData<Data>()
 
     fun chooseAnotherPlayer() {
         GlobalScope.launch(Dispatchers.IO) {
@@ -29,6 +27,6 @@ class FinishGameViewModel : ViewModel(), Observer {
     }
 
     override fun getData(data: Data) {
-        _data.value = data
+        this.data.value = data
     }
 }

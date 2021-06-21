@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
@@ -34,6 +35,9 @@ class FinishGameFragment : Fragment() {
                 findNavController().popBackStack()
             }
         })
+
+        val buttonRefuseToPlayAgain = binding.root.findViewById<Button>(R.id.chooseAnotherPlayerAfterFinish)
+        buttonRefuseToPlayAgain.setOnClickListener { findNavController().popBackStack() }
 
         return binding.root
     }

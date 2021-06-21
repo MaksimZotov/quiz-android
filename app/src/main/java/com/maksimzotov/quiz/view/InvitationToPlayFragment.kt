@@ -36,7 +36,10 @@ class InvitationToPlayFragment : Fragment() {
         })
 
         val buttonRefuseTheInvitation = binding.root.findViewById<Button>(R.id.doNotPlayWithAnotherPlayer)
-        buttonRefuseTheInvitation.setOnClickListener { findNavController().popBackStack() }
+        buttonRefuseTheInvitation.setOnClickListener {
+            findNavController().popBackStack()
+            viewModel.refuseTheInvitation()
+        }
 
         return binding.root
     }

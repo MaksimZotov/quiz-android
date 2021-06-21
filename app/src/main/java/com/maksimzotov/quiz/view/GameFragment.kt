@@ -45,7 +45,7 @@ class GameFragment : Fragment() {
             when (data) {
                 is LeavingTheGame -> {
                     Toast.makeText(activity, "The player \"${AppState.nameOfAnotherPlayer}\" has left the game", Toast.LENGTH_SHORT).show()
-                    findNavController().navigate(R.id.searchOnNameFragment)
+                    findNavController().popBackStack()
                 }
                 is FinishTheGame -> {
                     findNavController().navigate(R.id.finishGameFragment)

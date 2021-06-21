@@ -16,9 +16,7 @@ import com.maksimzotov.quiz.databinding.FragmentInvitationToPlayBinding
 import com.maksimzotov.quiz.model.appstate.AppState
 import com.maksimzotov.quiz.model.communication.ReceiverFromServer
 import com.maksimzotov.quiz.viewmodel.InvitationToPlayViewModel
-import data.Data
-import data.HardRemovalOfThePlayer
-import data.PlayTheGame
+import data.*
 
 class InvitationToPlayFragment : Fragment() {
     private val viewModel: InvitationToPlayViewModel by viewModels()
@@ -48,6 +46,16 @@ class InvitationToPlayFragment : Fragment() {
                     val navController = findNavController()
                     navController.popBackStack()
                     navController.navigate(R.id.gameFragment)
+                }
+                is ThePlayerWhoInvitedYouIsWaitingForAcceptingTheInvitationFromAnotherPlayer -> {
+                    Toast.makeText(activity, "The player \"${data.name}\" is waiting for accepting the invitation from another player", Toast.LENGTH_SHORT).show()
+                }
+                is IncorrectAcceptingTheInvitation -> {
+                    Toast.makeText(activity, "The player \"${data.name}\" does not exist", Toast.LENGTH_SHORT).show()
+                    findNavController().popBackStack()
+                }
+                is IncorrectRefusalTheInvitation -> {
+                    // do nothing
                 }
                 is HardRemovalOfThePlayer -> {
                     Toast.makeText(activity, "Unknown error on the side of another player", Toast.LENGTH_SHORT).show()

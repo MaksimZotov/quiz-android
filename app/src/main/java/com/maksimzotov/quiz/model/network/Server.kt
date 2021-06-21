@@ -2,7 +2,6 @@ package com.maksimzotov.quiz.model.network
 
 import com.maksimzotov.quiz.model.communication.ReceiverFromServer
 import data.Data
-import data.Exit
 import java.io.ObjectInputStream
 import java.io.ObjectOutputStream
 import java.net.Socket

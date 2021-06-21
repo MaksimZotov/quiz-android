@@ -23,7 +23,6 @@ class Server {
     }
 
     fun closeConnection() {
-        sender.sendDataToServer(Exit())
         clientSocket.close()
         input.close()
         output.close()

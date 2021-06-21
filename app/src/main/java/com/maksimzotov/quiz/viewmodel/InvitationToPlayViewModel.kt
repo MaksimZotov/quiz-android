@@ -6,25 +6,16 @@ import com.maksimzotov.quiz.model.communication.Observer
 import com.maksimzotov.quiz.model.communication.SenderToServer
 import com.maksimzotov.quiz.util.SingleLiveData
 import data.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 class InvitationToPlayViewModel : ViewModel(), Observer {
     val data = SingleLiveData<Data>()
 
-    val nameOfAnotherPlayer = AppState.nameOfAnotherPlayer
-
     fun acceptTheInvitation() {
-        GlobalScope.launch(Dispatchers.IO) {
-            SenderToServer.sendData(AcceptingTheInvitation(nameOfAnotherPlayer))
-        }
+        SenderToServer.sendData(AcceptingTheInvitation(AppState.nameOfAnotherPlayer))
     }
 
     fun refuseTheInvitation() {
-        GlobalScope.launch(Dispatchers.IO) {
-            SenderToServer.sendData(RefusalTheInvitation(nameOfAnotherPlayer))
-        }
+        SenderToServer.sendData(RefusalTheInvitation(AppState.nameOfAnotherPlayer))
     }
 
     override fun getData(data: Data) {

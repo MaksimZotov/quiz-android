@@ -32,11 +32,7 @@ class GameFragment : Fragment() {
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 viewModel.leaveGame()
-                val navController = findNavController()
-                navController.popBackStack()
-                if (!AppState.playerInvited) {
-                    navController.popBackStack()
-                }
+                findNavController().popBackStack()
             }
         })
 

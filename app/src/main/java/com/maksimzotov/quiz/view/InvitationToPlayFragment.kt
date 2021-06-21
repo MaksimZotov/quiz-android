@@ -34,8 +34,9 @@ class InvitationToPlayFragment : Fragment() {
         val dataObserver = Observer<Data> { data ->
             when (data) {
                 is PlayTheGame -> {
-                    AppState.playerInvited = false
-                    findNavController().navigate(R.id.gameFragment)
+                    val navController = findNavController()
+                    navController.popBackStack()
+                    navController.navigate(R.id.gameFragment)
                 }
                 else -> {
                     throw Exception("Incorrect data for the SearchOnName fragment")

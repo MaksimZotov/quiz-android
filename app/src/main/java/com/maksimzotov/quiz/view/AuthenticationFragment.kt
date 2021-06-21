@@ -35,7 +35,7 @@ class AuthenticationFragment : Fragment() {
         val dataObserver = Observer<Data> { data ->
             when (data) {
                 is RefusalTheName -> {
-                    Toast.makeText(activity, "The name ${data.name} is taken", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "The name \"${data.name}\" is taken", Toast.LENGTH_SHORT).show()
                 }
                 is AcceptingTheName -> {
                     findNavController().navigate(R.id.searchOnNameFragment)

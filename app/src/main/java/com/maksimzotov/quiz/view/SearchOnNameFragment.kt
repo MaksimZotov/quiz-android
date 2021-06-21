@@ -38,11 +38,10 @@ class SearchOnNameFragment : Fragment() {
                     findNavController().navigate(R.id.invitationToPlayFragment)
                 }
                 is PlayTheGame -> {
-                    AppState.playerInvited = true
                     findNavController().navigate(R.id.gameFragment)
                 }
                 is RefusalTheInvitation -> {
-                    Toast.makeText(activity, "The player ${data.name} has refused the invitation", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "The player \"${data.name}\" has refused the invitation", Toast.LENGTH_SHORT).show()
                 }
                 else -> {
                     throw Exception("Incorrect data for the SearchOnName fragment")

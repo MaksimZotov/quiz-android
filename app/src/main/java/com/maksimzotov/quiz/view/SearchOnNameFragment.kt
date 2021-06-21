@@ -52,6 +52,9 @@ class SearchOnNameFragment : Fragment() {
                 is RefusalTheInvitation -> {
                     Toast.makeText(activity, "The player \"${data.name}\" has refused the invitation", Toast.LENGTH_SHORT).show()
                 }
+                is HardRemovalOfThePlayer -> {
+                    Toast.makeText(activity, "Unknown error on the side of another player", Toast.LENGTH_SHORT).show()
+                }
                 else -> {
                     throw Exception("Incorrect data for the SearchOnName fragment")
                 }

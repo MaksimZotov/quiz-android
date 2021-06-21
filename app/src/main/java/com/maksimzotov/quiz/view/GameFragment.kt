@@ -50,6 +50,10 @@ class GameFragment : Fragment() {
                 is FinishTheGame -> {
                     findNavController().navigate(R.id.finishGameFragment)
                 }
+                is HardRemovalOfThePlayer -> {
+                    Toast.makeText(activity, "Unknown error on the side of another player", Toast.LENGTH_SHORT).show()
+                    findNavController().popBackStack()
+                }
                 else -> {
                     throw Exception("Incorrect data for the Game fragment")
                 }

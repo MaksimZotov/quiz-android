@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -16,6 +17,7 @@ import com.maksimzotov.quiz.model.appstate.AppState
 import com.maksimzotov.quiz.model.communication.ReceiverFromServer
 import com.maksimzotov.quiz.viewmodel.InvitationToPlayViewModel
 import data.Data
+import data.HardRemovalOfThePlayer
 import data.PlayTheGame
 
 class InvitationToPlayFragment : Fragment() {
@@ -46,6 +48,10 @@ class InvitationToPlayFragment : Fragment() {
                     val navController = findNavController()
                     navController.popBackStack()
                     navController.navigate(R.id.gameFragment)
+                }
+                is HardRemovalOfThePlayer -> {
+                    Toast.makeText(activity, "Unknown error on the side of another player", Toast.LENGTH_SHORT).show()
+                    findNavController().popBackStack()
                 }
                 else -> {
                     throw Exception("Incorrect data for the SearchOnName fragment")

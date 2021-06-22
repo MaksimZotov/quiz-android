@@ -37,12 +37,11 @@ class FinishGameFragment : Fragment() {
             }
         })
 
-        val buttonRefuseToPlayAgain = binding.root.findViewById<Button>(R.id.chooseAnotherPlayerAfterFinish)
-        buttonRefuseToPlayAgain.setOnClickListener {
-            viewModel.chooseAnotherPlayer()
-            val navController = findNavController()
-            navController.popBackStack()
-            navController.popBackStack()
+        binding.chooseAnotherPlayerAfterFinish.setOnClickListener {
+                viewModel.chooseAnotherPlayer()
+                val navController = findNavController()
+                navController.popBackStack()
+                navController.popBackStack()
         }
 
         return binding.root

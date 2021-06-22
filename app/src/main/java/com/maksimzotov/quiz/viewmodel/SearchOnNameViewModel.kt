@@ -17,8 +17,11 @@ class SearchOnNameViewModel : ViewModel(), Observer {
     }
 
     fun inviteAnotherPlayer() {
-        AppState.nameOfAnotherPlayer = nameOfAnotherPlayer
-        SenderToServer.sendData(Invitation(AppState.nameOfAnotherPlayer))
+        if (!AppState.waitingForPlayTheGame) {
+            AppState.waitingForPlayTheGame = true
+            AppState.nameOfAnotherPlayer = nameOfAnotherPlayer
+            SenderToServer.sendData(Invitation(AppState.nameOfAnotherPlayer))
+        }
     }
 
     fun changeName() {

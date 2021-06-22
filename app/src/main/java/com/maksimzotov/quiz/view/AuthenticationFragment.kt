@@ -12,6 +12,7 @@ import com.maksimzotov.quiz.R
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.maksimzotov.quiz.databinding.FragmentAuthenticationBinding
+import com.maksimzotov.quiz.model.appstate.AppState
 import com.maksimzotov.quiz.model.communication.ReceiverFromServer
 import com.maksimzotov.quiz.viewmodel.AuthenticationViewModel
 import data.AcceptingTheName
@@ -35,9 +36,11 @@ class AuthenticationFragment : Fragment() {
         val dataObserver = Observer<Data> { data ->
             when (data) {
                 is RefusalTheName -> {
+                    AppState.waitingForAcceptingTheName = false
                     Toast.makeText(activity, "The name \"${data.name}\" is taken", Toast.LENGTH_SHORT).show()
                 }
                 is AcceptingTheName -> {
+                    AppState.waitingForAcceptingTheName = false
                     findNavController().navigate(R.id.searchOnNameFragment)
                 }
                 else -> {

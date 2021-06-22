@@ -1,6 +1,7 @@
 package com.maksimzotov.quiz.viewmodel
 
 import androidx.lifecycle.ViewModel
+import com.maksimzotov.quiz.model.appstate.AppState
 import com.maksimzotov.quiz.model.communication.Observer
 import com.maksimzotov.quiz.model.communication.SenderToServer
 import com.maksimzotov.quiz.util.SingleLiveData
@@ -16,7 +17,10 @@ class FinishGameViewModel : ViewModel(), Observer {
     }
 
     fun playAgain() {
-        SenderToServer.sendData(RequestToPlayAgain())
+        if (!AppState.waitingForPlayTheGame) {
+            AppState.waitingForPlayTheGame = true
+            SenderToServer.sendData(RequestToPlayAgain())
+        }
     }
 
     override fun getData(data: Data) {

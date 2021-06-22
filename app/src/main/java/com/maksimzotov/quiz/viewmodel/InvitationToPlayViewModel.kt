@@ -11,7 +11,10 @@ class InvitationToPlayViewModel : ViewModel(), Observer {
     val data = SingleLiveData<Data>()
 
     fun acceptTheInvitation() {
-        SenderToServer.sendData(AcceptingTheInvitation(AppState.nameOfAnotherPlayer))
+        if (!AppState.waitingForPlayTheGame) {
+            AppState.waitingForPlayTheGame = true
+            SenderToServer.sendData(AcceptingTheInvitation(AppState.nameOfAnotherPlayer))
+        }
     }
 
     fun refuseTheInvitation() {

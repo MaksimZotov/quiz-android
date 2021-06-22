@@ -14,8 +14,11 @@ class AuthenticationViewModel : ViewModel(), Observer {
     var playerName = ""
 
     fun sendPlayerName() {
-        AppState.playerName = playerName
-        SenderToServer.sendData(Name(AppState.playerName))
+        if (!AppState.waitingForAcceptingTheName) {
+            AppState.waitingForAcceptingTheName = true
+            AppState.playerName = playerName
+            SenderToServer.sendData(Name(AppState.playerName))
+        }
     }
 
     override fun getData(data: Data) {

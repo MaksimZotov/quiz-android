@@ -1,6 +1,7 @@
 package com.maksimzotov.quiz.model.network
 
 import data.Data
+import java.io.IOException
 import java.io.ObjectInputStream
 
 class Reader(private val server: Server, private val inputStream: ObjectInputStream): Thread() {
@@ -10,9 +11,11 @@ class Reader(private val server: Server, private val inputStream: ObjectInputStr
     }
 
     override fun run() {
-        while (true) {
-            val data = inputStream.readObject() as Data
-            server.handleDataFromServer(data)
-        }
+        try {
+            while (true) {
+                val data = inputStream.readObject() as Data
+                server.handleDataFromServer(data)
+            }
+        } catch (ex: IOException) { }
     }
 }

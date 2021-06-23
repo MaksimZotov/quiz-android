@@ -7,6 +7,8 @@ import java.io.ObjectOutputStream
 import java.net.Socket
 
 class Server {
+    val isClosed get() = !this::clientSocket.isInitialized || clientSocket.isClosed
+
     private lateinit var clientSocket: Socket
     private lateinit var output: ObjectOutputStream
     private lateinit var input: ObjectInputStream

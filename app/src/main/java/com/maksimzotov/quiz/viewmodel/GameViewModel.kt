@@ -2,6 +2,7 @@ package com.maksimzotov.quiz.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.maksimzotov.quiz.model.appstate.AppState
 import com.maksimzotov.quiz.model.communication.Observer
 import com.maksimzotov.quiz.model.communication.SenderToServer
 import com.maksimzotov.quiz.util.SingleLiveData
@@ -45,7 +46,16 @@ class GameViewModel : ViewModel(), Observer {
                 remainingTime.value = data.time.toString()
             }
             is Score -> {
-                score.value = "${data.player}/${data.anotherPlayer}"
+                check(
+                        data.playerNameToScore.contains(AppState.playerName) &&
+                        data.playerNameToScore.contains(AppState.nameOfAnotherPlayer) &&
+                        data.playerNameToScore.size == 2
+                )
+
+                val scorePlayer = data.playerNameToScore[AppState.playerName]
+                val scoreAnotherPlayer = data.playerNameToScore[AppState.nameOfAnotherPlayer]
+
+                score.value = "$scorePlayer/$scoreAnotherPlayer"
             }
             else -> {
                 this.data.value = data

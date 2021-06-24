@@ -20,18 +20,18 @@
 
             <EditText
                 android:id="@+id/nameOfAnotherPlayer"
-                android:text = "@={viewModel.nameOfAnotherPlayer}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:autofillHints=""
                 android:ems="10"
+                android:hint="@string/another_player"
                 android:inputType="textPersonName"
-                android:textSize="24sp"
+                android:text="@={viewModel.nameOfAnotherPlayer}"
+                android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:hint="@string/another_player"
-                android:autofillHints="" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/question"
@@ -41,7 +41,7 @@
                 android:height="110dp"
                 android:text="@string/enter_the_name_of_another_player_or_wait_for_invitation"
                 android:textAlignment="center"
-                android:textSize="30sp"
+                android:textSize="20sp"
                 app:layout_constraintBottom_toTopOf="@+id/nameOfAnotherPlayer"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -49,11 +49,11 @@
 
             <Button
                 android:id="@+id/inviteAnotherPlayer"
-                android:onClick = "@{() -> viewModel.inviteAnotherPlayer()}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="@{() -> viewModel.inviteAnotherPlayer()}"
                 android:text="@string/next"
-                android:textSize="28sp"
+                android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

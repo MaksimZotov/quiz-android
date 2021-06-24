@@ -20,13 +20,13 @@
 
             <TextView
                 android:id="@+id/question"
-                android:text="@{viewModel.question}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:width="310dp"
                 android:height="120dp"
+                android:text="@{viewModel.question}"
                 android:textAlignment="center"
-                android:textSize="20sp"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -35,12 +35,12 @@
 
             <Button
                 android:id="@+id/answer0"
-                android:text="@{viewModel.firstAnswer}"
-                android:onClick="@{() -> viewModel.setAnswer(0)}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:width="310dp"
-                android:textSize="18sp"
+                android:onClick="@{() -> viewModel.setAnswer(0)}"
+                android:text="@{viewModel.firstAnswer}"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toTopOf="@+id/giveAnswer"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -49,12 +49,12 @@
 
             <Button
                 android:id="@+id/answer1"
-                android:text="@{viewModel.secondAnswer}"
-                android:onClick="@{() -> viewModel.setAnswer(1)}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:width="310sp"
-                android:textSize="18sp"
+                android:width="310dp"
+                android:onClick="@{() -> viewModel.setAnswer(1)}"
+                android:text="@{viewModel.secondAnswer}"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toTopOf="@+id/giveAnswer"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -63,12 +63,12 @@
 
             <Button
                 android:id="@+id/answer2"
-                android:text="@{viewModel.thirdAnswer}"
-                android:onClick="@{() -> viewModel.setAnswer(2)}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:width="310dp"
-                android:textSize="18sp"
+                android:onClick="@{() -> viewModel.setAnswer(2)}"
+                android:text="@{viewModel.thirdAnswer}"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toTopOf="@+id/giveAnswer"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -77,11 +77,11 @@
 
             <Button
                 android:id="@+id/giveAnswer"
-                android:onClick="@{() -> viewModel.giveAnswer()}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="@{() -> viewModel.giveAnswer()}"
                 android:text="@string/give_answer"
-                android:textSize="28sp"
+                android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -95,7 +95,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
                 android:text="@{viewModel.score}"
-                android:textSize="30sp"
+                android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -106,7 +106,7 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="24dp"
                 android:text="@{viewModel.remainingTime}"
-                android:textSize="28sp"
+                android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>

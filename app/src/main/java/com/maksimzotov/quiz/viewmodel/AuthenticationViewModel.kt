@@ -1,16 +1,11 @@
 package com.maksimzotov.quiz.viewmodel
 
-import androidx.lifecycle.ViewModel
-import com.maksimzotov.quiz.util.SingleLiveData
 import com.maksimzotov.quiz.model.appstate.AppState
-import com.maksimzotov.quiz.model.communication.Observer
 import com.maksimzotov.quiz.model.communication.SenderToServer
-import data.Data
+import com.maksimzotov.quiz.viewmodel.base.BaseViewModel
 import data.Name
 
-class AuthenticationViewModel : ViewModel(), Observer {
-    val data = SingleLiveData<Data>()
-
+class AuthenticationViewModel : BaseViewModel() {
     var playerName = ""
 
     fun sendPlayerName() {
@@ -19,9 +14,5 @@ class AuthenticationViewModel : ViewModel(), Observer {
             AppState.playerName = playerName
             SenderToServer.sendData(Name(AppState.playerName))
         }
-    }
-
-    override fun getData(data: Data) {
-        this.data.value = data
     }
 }

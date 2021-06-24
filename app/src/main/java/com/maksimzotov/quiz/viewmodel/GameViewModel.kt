@@ -6,11 +6,10 @@ import com.maksimzotov.quiz.model.appstate.AppState
 import com.maksimzotov.quiz.model.communication.Observer
 import com.maksimzotov.quiz.model.communication.SenderToServer
 import com.maksimzotov.quiz.util.SingleLiveData
+import com.maksimzotov.quiz.viewmodel.base.BaseViewModel
 import data.*
 
-class GameViewModel : ViewModel(), Observer {
-    val data = SingleLiveData<Data>()
-
+class GameViewModel : BaseViewModel() {
     val question: MutableLiveData<String> = MutableLiveData("question")
     val firstAnswer: MutableLiveData<String> = MutableLiveData("firstAnswer")
     val secondAnswer: MutableLiveData<String> = MutableLiveData("secondAnswer")

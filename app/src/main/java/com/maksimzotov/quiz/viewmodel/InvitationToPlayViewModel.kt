@@ -1,15 +1,11 @@
 package com.maksimzotov.quiz.viewmodel
 
-import androidx.lifecycle.ViewModel
 import com.maksimzotov.quiz.model.appstate.AppState
-import com.maksimzotov.quiz.model.communication.Observer
 import com.maksimzotov.quiz.model.communication.SenderToServer
-import com.maksimzotov.quiz.util.SingleLiveData
+import com.maksimzotov.quiz.viewmodel.base.BaseViewModel
 import data.*
 
-class InvitationToPlayViewModel : ViewModel(), Observer {
-    val data = SingleLiveData<Data>()
-
+class InvitationToPlayViewModel : BaseViewModel() {
     fun acceptTheInvitation() {
         if (!AppState.waitingForPlayTheGame) {
             AppState.waitingForPlayTheGame = true
@@ -19,9 +15,5 @@ class InvitationToPlayViewModel : ViewModel(), Observer {
 
     fun refuseTheInvitation() {
         SenderToServer.sendData(RefusalTheInvitation(AppState.nameOfAnotherPlayer))
-    }
-
-    override fun getData(data: Data) {
-        this.data.value = data
     }
 }

@@ -13,52 +13,49 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.maksimzotov.quiz.R
 import com.maksimzotov.quiz.databinding.FragmentGameBinding
+import com.maksimzotov.quiz.databinding.FragmentInvitationToPlayBinding
 import com.maksimzotov.quiz.model.appstate.AppState
 import com.maksimzotov.quiz.model.communication.ReceiverFromServer
+import com.maksimzotov.quiz.view.base.BaseFragment
 import com.maksimzotov.quiz.viewmodel.GameViewModel
+import com.maksimzotov.quiz.viewmodel.InvitationToPlayViewModel
 import data.*
 
-class GameFragment : Fragment() {
-    private val viewModel: GameViewModel by viewModels()
+class GameFragment :
+        BaseFragment
+            <FragmentGameBinding, GameViewModel>
+                (FragmentGameBinding::inflate) {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        observeDataFromServer()
-        val binding: FragmentGameBinding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_game, container, false
-        )
-        binding.viewModel = viewModel
-        binding.lifecycleOwner = viewLifecycleOwner
+    override val viewModel: GameViewModel by viewModels()
 
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                viewModel.leaveGame()
-                findNavController().popBackStack()
-            }
-        })
-
-        return binding.root
+    override fun assignBinding(binding: FragmentGameBinding) {
+        with(binding) {
+            viewModel = this@GameFragment.viewModel
+            lifecycleOwner = viewLifecycleOwner
+        }
     }
 
-    private fun observeDataFromServer() {
-        ReceiverFromServer.setObserver(viewModel)
-        val dataObserver = Observer<Data> { data ->
-            when (data) {
-                is LeavingTheGame -> {
-                    Toast.makeText(activity, "The player \"${AppState.nameOfAnotherPlayer}\" has left the game", Toast.LENGTH_SHORT).show()
-                    findNavController().popBackStack()
-                }
-                is FinishTheGame -> {
-                    findNavController().navigate(R.id.finishGameFragment)
-                }
-                is HardRemovalOfThePlayer -> {
-                    Toast.makeText(activity, "Unknown error on the side of another player", Toast.LENGTH_SHORT).show()
-                    findNavController().popBackStack()
-                }
-                else -> {
-                    throw Exception("Incorrect data for the Game fragment")
-                }
+    override fun handleData(data: Data) {
+        when (data) {
+            is LeavingTheGame -> {
+                Toast.makeText(activity, "The player \"${AppState.nameOfAnotherPlayer}\" has left the game", Toast.LENGTH_SHORT).show()
+                findNavController().popBackStack()
+            }
+            is FinishTheGame -> {
+                findNavController().navigate(R.id.finishGameFragment)
+            }
+            is HardRemovalOfThePlayer -> {
+                Toast.makeText(activity, "Unknown error on the side of another player", Toast.LENGTH_SHORT).show()
+                findNavController().popBackStack()
+            }
+            else -> {
+                throw Exception("Incorrect data for the Game fragment")
             }
         }
-        viewModel.data.observe(viewLifecycleOwner, dataObserver)
+    }
+
+    override fun onBackPressed() {
+        viewModel.leaveGame()
+        findNavController().popBackStack()
     }
 }

@@ -49,25 +49,15 @@ abstract class BaseFragment<VB: ViewBinding, VM: BaseViewModel>(
         }
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        val cm = requireActivity()
-                .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        cm.registerDefaultNetworkCallback(connectivityCallback)
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        val cm = requireActivity()
-                .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        cm.unregisterNetworkCallback(connectivityCallback)
-    }
-
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
+        val cm = requireActivity()
+                .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        cm.registerDefaultNetworkCallback(connectivityCallback)
+
         _binding = inflate.invoke(inflater, container, false)
         observeDataFromServer()
         assignBinding(binding)
@@ -81,6 +71,11 @@ abstract class BaseFragment<VB: ViewBinding, VM: BaseViewModel>(
 
     override fun onDestroyView() {
         super.onDestroyView()
+
+        val cm = requireActivity()
+                .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        cm.unregisterNetworkCallback(connectivityCallback)
+
         _binding = null
     }
 

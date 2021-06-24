@@ -21,7 +21,7 @@ class InvitationToPlayFragment :
         with(binding) {
             viewModel = this@InvitationToPlayFragment.viewModel
             doNotPlayWithAnotherPlayer.setOnClickListener {
-                viewModel.refuseTheInvitation()
+                viewModel!!.refuseTheInvitation()
                 findNavController().popBackStack()
             }
         }

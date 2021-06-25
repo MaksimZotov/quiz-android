@@ -7,26 +7,41 @@ import com.maksimzotov.quiz.viewmodel.base.BaseViewModel
 import data.*
 
 class GameViewModel : BaseViewModel() {
-    val question: MutableLiveData<String> = MutableLiveData("question")
-    val firstAnswer: MutableLiveData<String> = MutableLiveData("firstAnswer")
-    val secondAnswer: MutableLiveData<String> = MutableLiveData("secondAnswer")
-    val thirdAnswer: MutableLiveData<String> = MutableLiveData("thirdAnswer")
-    val remainingTime: MutableLiveData<String> = MutableLiveData("0")
-    val score: MutableLiveData<String> = MutableLiveData("0/0")
+    val question: MutableLiveData<String> = MutableLiveData("")
+    val firstAnswer: MutableLiveData<String> = MutableLiveData("")
+    val secondAnswer: MutableLiveData<String> = MutableLiveData("")
+    val thirdAnswer: MutableLiveData<String> = MutableLiveData("")
+    val remainingTime: MutableLiveData<String> = MutableLiveData("")
+    val score: MutableLiveData<String> = MutableLiveData("")
+
+    var isAbleToGiveAnswer = false
 
     private var indexOfAnswer = -1
     private var indexOfCorrectAnswer = -2
+
+    private var playerScore = 0
+    private var scoreOfAnotherPlayer = 0
 
     fun setAnswer(indexOfAnswer: Int) {
         this.indexOfAnswer = indexOfAnswer
     }
 
-    fun giveAnswer() {
+    fun giveAnswer(): Boolean {
+        if (!isAbleToGiveAnswer) {
+            return false
+        }
+        isAbleToGiveAnswer = false
         SenderToServer.sendData(Answer(indexOfAnswer))
+        return indexOfAnswer == indexOfCorrectAnswer
     }
 
     fun leaveGame() {
         SenderToServer.sendData(LeavingTheGame())
+    }
+
+    fun saveGameState() {
+        AppState.playerScore = playerScore
+        AppState.scoreOfAnotherPlayer = scoreOfAnotherPlayer
     }
 
     override fun getData(data: Data) {
@@ -37,6 +52,7 @@ class GameViewModel : BaseViewModel() {
                 secondAnswer.value = data.answers[1]
                 thirdAnswer.value = data.answers[2]
                 indexOfCorrectAnswer = data.indexOfCorrectAnswer
+                isAbleToGiveAnswer = true
             }
             is RemainingTime -> {
                 remainingTime.value = data.time.toString()
@@ -48,10 +64,10 @@ class GameViewModel : BaseViewModel() {
                         data.playerNameToScore.size == 2
                 )
 
-                val scorePlayer = data.playerNameToScore[AppState.playerName]
-                val scoreAnotherPlayer = data.playerNameToScore[AppState.nameOfAnotherPlayer]
+                playerScore = data.playerNameToScore[AppState.playerName]!!
+                scoreOfAnotherPlayer = data.playerNameToScore[AppState.nameOfAnotherPlayer]!!
 
-                score.value = "$scorePlayer/$scoreAnotherPlayer"
+                score.value = "$playerScore/$scoreOfAnotherPlayer"
             }
             else -> {
                 this.data.value = data

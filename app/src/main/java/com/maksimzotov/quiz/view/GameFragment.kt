@@ -1,5 +1,6 @@
 package com.maksimzotov.quiz.view
 
+import android.widget.Button
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.maksimzotov.quiz.R
@@ -21,6 +22,41 @@ class GameFragment :
         with(binding) {
             viewModel = this@GameFragment.viewModel
             lifecycleOwner = viewLifecycleOwner
+
+            giveAnswer.setBackgroundColor(resources.getColor(R.color.blue))
+            giveAnswer.setOnClickListener {
+                if (viewModel!!.isAbleToGiveAnswer) {
+                    if (viewModel!!.giveAnswer()) {
+                        giveAnswer.setBackgroundColor(
+                                resources.getColor(R.color.green)
+                        )
+                    } else {
+                        giveAnswer.setBackgroundColor(
+                                resources.getColor(R.color.red)
+                        )
+                    }
+                }
+            }
+
+
+            val listOfAnswerButtons = listOf(answer0, answer1, answer2)
+            listOfAnswerButtons.forEach {
+                it.setBackgroundColor(resources.getColor(R.color.blue))
+            }
+            val buttonAnswerFunction: (button: Button, index: Int) -> Unit = { button, index ->
+                if (viewModel!!.isAbleToGiveAnswer) {
+                    viewModel!!.setAnswer(index)
+                    button.setBackgroundColor(resources.getColor(R.color.yellow))
+                    listOfAnswerButtons.forEach {
+                        if (it != button) {
+                            it.setBackgroundColor(resources.getColor(R.color.blue))
+                        }
+                    }
+                }
+            }
+            listOfAnswerButtons.forEachIndexed { index, button ->
+                button.setOnClickListener { buttonAnswerFunction(button, index) }
+            }
         }
     }
 
@@ -37,6 +73,7 @@ class GameFragment :
                 findNavController().popBackStack(R.id.searchOnNameFragment, false)
             }
             is FinishTheGame -> {
+                viewModel.saveGameState()
                 findNavController().navigate(R.id.finishGameFragment)
             }
             is HardRemovalOfThePlayer -> {

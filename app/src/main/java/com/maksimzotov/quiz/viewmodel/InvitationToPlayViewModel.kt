@@ -6,6 +6,8 @@ import com.maksimzotov.quiz.viewmodel.base.BaseViewModel
 import data.*
 
 class InvitationToPlayViewModel : BaseViewModel() {
+    val nameOfAnotherPlayer get() = AppState.nameOfAnotherPlayer
+
     fun acceptTheInvitation() {
         if (!AppState.waitingForPlayTheGame) {
             AppState.waitingForPlayTheGame = true

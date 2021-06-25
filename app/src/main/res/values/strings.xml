@@ -8,7 +8,7 @@
     <string name="another_player">Имя соперника</string>
     <string name="yes">Да</string>
     <string name="no">Нет</string>
-    <string name="do_you_want_to_play_with_user_test">Сыграть с UserTest?</string>
+    <string name="do_you_want_to_play_with_the_player_P1">Сыграть с "%1$s"?</string>
     <string name="give_answer">Ответить</string>
     <string name="play_again">Сыграть заново</string>
     <string name="choose_another_player">Выбрать другого игрока</string>
@@ -25,4 +25,10 @@
     <string name="you_can_not_invite_yourself">Вы не можете пригласить самого себя</string>
     <string name="invited_player_P1_is_deciding_whether_to_play_with_another">
         Приглашённый игрок "%1$s" решает, играть ли с другим игроком</string>
+    <string name="finish_your_score_P1_score_of_another_player_P2_P3">
+        Игра завершена
+
+        Ваш результат: %1$d
+        Результат "%2$s": %3$d
+    </string>
 </resources>

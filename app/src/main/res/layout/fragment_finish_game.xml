@@ -19,11 +19,11 @@
             android:layout_height="match_parent">
 
             <TextView
+                android:id="@+id/finish_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:width="310dp"
                 android:height="120dp"
-                android:text="Игра завершена.\n\nВаш результат: 5\nРезультат UserTest: 5"
                 android:textAlignment="center"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@+id/playAgain"

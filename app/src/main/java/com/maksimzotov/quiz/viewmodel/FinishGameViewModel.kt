@@ -7,6 +7,10 @@ import data.RefusalToPlayAgain
 import data.RequestToPlayAgain
 
 class FinishGameViewModel : BaseViewModel() {
+    val playerScore get() = AppState.playerScore
+    val scoreOfAnotherPlayer get() = AppState.scoreOfAnotherPlayer
+    val nameOfAnotherPlayer get() = AppState.nameOfAnotherPlayer
+
     fun chooseAnotherPlayer() {
         SenderToServer.sendData(RefusalToPlayAgain())
     }

@@ -5,4 +5,6 @@ object AppState {
     var nameOfAnotherPlayer = ""
     var waitingForAcceptingTheName = false
     var waitingForPlayTheGame = false
+    var playerScore = 0
+    var scoreOfAnotherPlayer = 0
 }

@@ -13,15 +13,8 @@ class SearchOnNameViewModel : BaseViewModel() {
     }
 
     fun inviteAnotherPlayer() {
-        if (!AppState.waitingForPlayTheGame) {
-            AppState.waitingForPlayTheGame = true
-            AppState.nameOfAnotherPlayer = nameOfAnotherPlayer
-            SenderToServer.sendData(Invitation(AppState.nameOfAnotherPlayer))
-        }
-    }
-
-    fun notifyThatResponseToInvitationWasReceived() {
-        AppState.waitingForPlayTheGame = false
+        AppState.nameOfAnotherPlayer = nameOfAnotherPlayer
+        SenderToServer.sendData(Invitation(AppState.nameOfAnotherPlayer))
     }
 
     fun changeName() {

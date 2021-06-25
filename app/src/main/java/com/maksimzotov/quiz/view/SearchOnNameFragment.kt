@@ -23,14 +23,6 @@ class SearchOnNameFragment :
     }
 
     override fun handleData(data: Data) {
-        if (
-                data is Invitation || data is PlayTheGame || data is RefusalTheInvitation ||
-                data is IncorrectInvitation || data is InvitationMyself ||
-                data is InvitedPlayerIsDecidingWhetherToPlayWithAnotherPlayer ||
-                data is HardRemovalOfThePlayer
-        ) {
-            viewModel.notifyThatResponseToInvitationWasReceived()
-        }
         when (data) {
             is Invitation -> {
                 viewModel.handleInvitation(data.name)

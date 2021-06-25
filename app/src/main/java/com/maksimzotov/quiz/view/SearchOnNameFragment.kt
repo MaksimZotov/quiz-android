@@ -6,6 +6,7 @@ import androidx.navigation.fragment.findNavController
 import com.maksimzotov.quiz.R
 import com.maksimzotov.quiz.databinding.FragmentSearchOnNameBinding
 import com.maksimzotov.quiz.model.appstate.AppState
+import com.maksimzotov.quiz.util.shortToast
 import com.maksimzotov.quiz.view.base.BaseFragment
 import com.maksimzotov.quiz.viewmodel.SearchOnNameViewModel
 import data.*
@@ -24,35 +25,48 @@ class SearchOnNameFragment :
     }
 
     override fun handleData(data: Data) {
+        if (
+                data is Invitation || data is PlayTheGame || data is RefusalToPlayAgain ||
+                data is IncorrectInvitation || data is InvitationMyself ||
+                data is InvitedPlayerIsDecidingWhetherToPlayWithAnotherPlayer ||
+                data is HardRemovalOfThePlayer
+        ) {
+            AppState.waitingForPlayTheGame = false
+        }
         when (data) {
             is Invitation -> {
-                AppState.waitingForPlayTheGame = false
                 viewModel.handleInvitation(data.name)
                 findNavController().navigate(R.id.invitationToPlayFragment)
             }
             is PlayTheGame -> {
-                AppState.waitingForPlayTheGame = false
                 findNavController().navigate(R.id.gameFragment)
             }
             is RefusalTheInvitation -> {
-                AppState.waitingForPlayTheGame = false
-                Toast.makeText(activity, "The player \"${data.name}\" has refused the invitation", Toast.LENGTH_SHORT).show()
+                shortToast(
+                        activity,
+                        getString(R.string.the_player_P1_has_refused_the_invitation, data.name)
+                )
             }
             is IncorrectInvitation -> {
-                AppState.waitingForPlayTheGame = false
-                Toast.makeText(activity, "The player \"${data.name}\" does not exist", Toast.LENGTH_SHORT).show()
+                shortToast(activity, getString(R.string.the_player_P1_does_not_exist, data.name))
             }
             is InvitationMyself -> {
-                AppState.waitingForPlayTheGame = false
-                Toast.makeText(activity, "You can't invite yourself", Toast.LENGTH_SHORT).show()
+                shortToast(activity, getString(R.string.you_can_not_invite_yourself))
             }
             is InvitedPlayerIsDecidingWhetherToPlayWithAnotherPlayer -> {
-                AppState.waitingForPlayTheGame = false
-                Toast.makeText(activity, "The invited player \"${data.name}\" is deciding whether to play with another player", Toast.LENGTH_SHORT).show()
+                shortToast(
+                        activity,
+                        getString(
+                                R.string.invited_player_P1_is_deciding_whether_to_play_with_another,
+                                data.name
+                        )
+                )
             }
             is HardRemovalOfThePlayer -> {
-                AppState.waitingForPlayTheGame = false
-                Toast.makeText(activity, "Unknown error on the side of another player", Toast.LENGTH_SHORT).show()
+                shortToast(
+                        activity,
+                        getString(R.string.unknown_error_on_the_side_of_another_player)
+                )
             }
             else -> {
                 throw Exception("Incorrect data for the SearchOnName fragment")
@@ -62,6 +76,6 @@ class SearchOnNameFragment :
 
     override fun onBackPressed() {
         viewModel.changeName()
-        findNavController().popBackStack()
+        findNavController().popBackStack(R.id.authenticationFragment, false)
     }
 }

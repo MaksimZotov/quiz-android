@@ -29,7 +29,7 @@ abstract class BaseFragment<VB: ViewBinding, VM: BaseViewModel>(
     abstract fun assignBinding(binding: VB)
 
     open fun onBackPressed() {
-        findNavController().popBackStack()
+        requireActivity().onBackPressed()
     }
 
 

@@ -9,6 +9,7 @@ import com.maksimzotov.quiz.R
 import androidx.navigation.fragment.findNavController
 import com.maksimzotov.quiz.databinding.FragmentAuthenticationBinding
 import com.maksimzotov.quiz.model.appstate.AppState
+import com.maksimzotov.quiz.util.shortToast
 import com.maksimzotov.quiz.view.base.BaseFragment
 import com.maksimzotov.quiz.viewmodel.AuthenticationViewModel
 import data.AcceptingTheName
@@ -41,7 +42,7 @@ class AuthenticationFragment :
         when (data) {
             is RefusalTheName -> {
                 AppState.waitingForAcceptingTheName = false
-                Toast.makeText(activity, "The name \"${data.name}\" is taken", Toast.LENGTH_SHORT).show()
+                shortToast(activity, getString(R.string.the_name_P1_is_taken, data.name))
             }
             is AcceptingTheName -> {
                 AppState.waitingForAcceptingTheName = false

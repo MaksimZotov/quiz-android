@@ -23,7 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:width="310dp"
-                android:height="120dp"
+                android:height="160dp"
                 android:text="@{viewModel.question}"
                 android:textAlignment="center"
                 android:textSize="14sp"
@@ -31,7 +31,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.26" />
+                app:layout_constraintVertical_bias="0.19999999" />
 
             <Button
                 android:id="@+id/answer0"

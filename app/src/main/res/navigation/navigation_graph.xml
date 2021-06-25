@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/authenticationFragment">
+
+    <fragment
+        android:id="@+id/authenticationFragment"
+        android:name="com.maksimzotov.quiz.view.AuthenticationFragment"
+        android:label="AuthenticationFragment"
+        tools:layout="@layout/fragment_authentication">
+        <action
+            android:id="@+id/action_authenticationFragment_to_searchOnNameFragment"
+            app:destination="@id/searchOnNameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchOnNameFragment"
+        android:name="com.maksimzotov.quiz.view.SearchOnNameFragment"
+        android:label="SearchOnNameFragment"
+        tools:layout="@layout/fragment_search_on_name" >
+        <action
+            android:id="@+id/action_searchOnNameFragment_to_gameFragment"
+            app:destination="@id/gameFragment" />
+        <action
+            android:id="@+id/action_searchOnNameFragment_to_authenticationFragment"
+            app:destination="@id/authenticationFragment" />
+        <action
+            android:id="@+id/action_searchOnNameFragment_to_invitationToPlayFragment"
+            app:destination="@id/invitationToPlayFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gameFragment"
+        android:name="com.maksimzotov.quiz.view.GameFragment"
+        android:label="GameFragment"
+        tools:layout="@layout/fragment_game" >
+        <action
+            android:id="@+id/action_gameFragment_to_finishGameFragment"
+            app:destination="@id/finishGameFragment" />
+        <action
+            android:id="@+id/action_gameFragment_to_searchOnNameFragment"
+            app:destination="@id/searchOnNameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/finishGameFragment"
+        android:name="com.maksimzotov.quiz.view.FinishGameFragment"
+        android:label="FinishGameFragment"
+        tools:layout="@layout/fragment_finish_game" >
+        <action
+            android:id="@+id/action_finishGameFragment_to_searchOnNameFragment"
+            app:destination="@id/searchOnNameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/invitationToPlayFragment"
+        android:name="com.maksimzotov.quiz.view.InvitationToPlayFragment"
+        android:label="fragment_invitation_to_play"
+        tools:layout="@layout/fragment_invitation_to_play" >
+        <action
+            android:id="@+id/action_invitationToPlayFragment_to_gameFragment"
+            app:destination="@id/gameFragment" />
+    </fragment>
+</navigation>

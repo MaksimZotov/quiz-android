@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.maksimzotov.quiz.viewmodel.GameViewModel" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.GameFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/question"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:width="310dp"
+                android:height="120dp"
+                android:text="@{viewModel.question}"
+                android:textAlignment="center"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.26" />
+
+            <Button
+                android:id="@+id/answer0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:width="310dp"
+                android:text="@{viewModel.firstAnswer}"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toTopOf="@+id/giveAnswer"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/question"
+                app:layout_constraintVertical_bias="0.060000002" />
+
+            <Button
+                android:id="@+id/answer1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:width="310dp"
+                android:text="@{viewModel.secondAnswer}"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toTopOf="@+id/giveAnswer"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/question"
+                app:layout_constraintVertical_bias="0.41000003" />
+
+            <Button
+                android:id="@+id/answer2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:width="310dp"
+                android:text="@{viewModel.thirdAnswer}"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toTopOf="@+id/giveAnswer"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/question"
+                app:layout_constraintVertical_bias="0.75" />
+
+            <Button
+                android:id="@+id/giveAnswer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/give_answer"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.9" />
+
+            <TextView
+                android:id="@+id/score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:text="@{viewModel.score}"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/remainingTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:text="@{viewModel.remainingTime}"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+</layout>

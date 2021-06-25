@@ -17,4 +17,8 @@ class FinishGameViewModel : BaseViewModel() {
             SenderToServer.sendData(RequestToPlayAgain())
         }
     }
+
+    fun notifyThatResponseToRequestToPlayAgainWasReceived() {
+        AppState.waitingForPlayTheGame = false
+    }
 }

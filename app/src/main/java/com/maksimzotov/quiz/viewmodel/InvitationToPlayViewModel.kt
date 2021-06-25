@@ -13,6 +13,10 @@ class InvitationToPlayViewModel : BaseViewModel() {
         }
     }
 
+    fun notifyThatResponseToAcceptingTheInvitationWasReceived() {
+        AppState.waitingForPlayTheGame = false
+    }
+
     fun refuseTheInvitation() {
         SenderToServer.sendData(RefusalTheInvitation(AppState.nameOfAnotherPlayer))
     }

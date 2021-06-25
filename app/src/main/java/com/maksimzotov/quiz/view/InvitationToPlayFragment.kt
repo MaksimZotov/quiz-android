@@ -35,7 +35,7 @@ class InvitationToPlayFragment :
                 data is IncorrectAcceptingTheInvitation || data is IncorrectRefusalTheInvitation ||
                 data is HardRemovalOfThePlayer || data is IncorrectRefusalTheInvitation
         ) {
-            AppState.waitingForPlayTheGame = false
+            viewModel.notifyThatResponseToAcceptingTheInvitationWasReceived()
         }
         when (data) {
             is PlayTheGame -> {
@@ -64,9 +64,6 @@ class InvitationToPlayFragment :
                         getString(R.string.unknown_error_on_the_side_of_another_player)
                 )
                 findNavController().popBackStack(R.id.searchOnNameFragment, false)
-            }
-            else -> {
-                throw Exception("Incorrect data for the SearchOnName fragment")
             }
         }
     }

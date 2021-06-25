@@ -6,13 +6,13 @@ import data.Data
 import data.Ping
 import data.Pong
 
-object ReceiverFromServer : Observable {
-    private lateinit var currentObserver: Observer
+object ReceiverFromServer : DataObservable {
+    private lateinit var currentDataObserver: DataObserver
 
     private val handler = Handler(Looper.getMainLooper())
 
-    override fun setObserver(observer: Observer) {
-        currentObserver = observer
+    override fun setObserver(dataObserver: DataObserver) {
+        currentDataObserver = dataObserver
     }
 
     fun getData(data: Data) {
@@ -21,7 +21,7 @@ object ReceiverFromServer : Observable {
         }
         else {
             handler.post {
-                currentObserver.getData(data)
+                currentDataObserver.getData(data)
             }
         }
     }

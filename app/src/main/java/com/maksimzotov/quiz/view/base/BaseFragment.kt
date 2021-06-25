@@ -1,5 +1,6 @@
 package com.maksimzotov.quiz.view.base
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Bundle
@@ -12,8 +13,6 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.maksimzotov.quiz.R
-import com.maksimzotov.quiz.model.communication.ReceiverFromServer
-import com.maksimzotov.quiz.model.communication.SenderToServer
 import com.maksimzotov.quiz.util.ConnectionLostCallback
 import com.maksimzotov.quiz.viewmodel.base.BaseViewModel
 import data.Data
@@ -28,8 +27,13 @@ abstract class BaseFragment<VB: ViewBinding, VM: BaseViewModel>(
     abstract fun handleData(data: Data)
     abstract fun assignBinding(binding: VB)
 
+    @SuppressLint("RestrictedApi")
     open fun onBackPressed() {
-        requireActivity().onBackPressed()
+        val navController = findNavController()
+        navController.popBackStack()
+        if (navController.backStack.isEmpty()) {
+            requireActivity().finish()
+        }
     }
 
 
@@ -40,9 +44,7 @@ abstract class BaseFragment<VB: ViewBinding, VM: BaseViewModel>(
 
     private val connectivityCallback = object : ConnectionLostCallback() {
         override fun notifyThatConnectionLost() {
-            GlobalScope.launch(Dispatchers.IO) {
-                SenderToServer.closeConnection()
-            }
+            viewModel.closeConnection()
             GlobalScope.launch(Dispatchers.Main) {
                 findNavController().popBackStack(R.id.authenticationFragment, false)
             }
@@ -61,7 +63,10 @@ abstract class BaseFragment<VB: ViewBinding, VM: BaseViewModel>(
         _binding = inflate.invoke(inflater, container, false)
         observeDataFromServer()
         assignBinding(binding)
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+        requireActivity().onBackPressedDispatcher.addCallback(
+                viewLifecycleOwner,
+                object : OnBackPressedCallback(true
+                ) {
             override fun handleOnBackPressed() {
                 onBackPressed()
             }
@@ -80,7 +85,7 @@ abstract class BaseFragment<VB: ViewBinding, VM: BaseViewModel>(
     }
 
     private fun observeDataFromServer() {
-        ReceiverFromServer.setObserver(viewModel)
+        viewModel.subscribeOnObservableData()
         viewModel.data.observe(viewLifecycleOwner, handleDataObserver)
     }
 }

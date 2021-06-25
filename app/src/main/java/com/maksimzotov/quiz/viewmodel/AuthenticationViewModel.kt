@@ -8,6 +8,10 @@ import data.Name
 class AuthenticationViewModel : BaseViewModel() {
     var playerName = ""
 
+    fun notifyThatResponseToNameWasReceived() {
+        AppState.waitingForAcceptingTheName = false
+    }
+
     fun sendPlayerName() {
         if (!AppState.waitingForAcceptingTheName) {
             AppState.waitingForAcceptingTheName = true

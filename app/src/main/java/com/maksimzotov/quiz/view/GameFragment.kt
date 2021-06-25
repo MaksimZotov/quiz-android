@@ -1,6 +1,5 @@
 package com.maksimzotov.quiz.view
 
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.maksimzotov.quiz.R
@@ -46,9 +45,6 @@ class GameFragment :
                         getString(R.string.unknown_error_on_the_side_of_another_player)
                 )
                 findNavController().popBackStack(R.id.searchOnNameFragment, false)
-            }
-            else -> {
-                throw Exception("Incorrect data for the Game fragment")
             }
         }
     }

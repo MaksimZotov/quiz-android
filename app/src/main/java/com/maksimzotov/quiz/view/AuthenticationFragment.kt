@@ -3,12 +3,10 @@ package com.maksimzotov.quiz.view
 import android.content.Context.CONNECTIVITY_SERVICE
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.maksimzotov.quiz.R
 import androidx.navigation.fragment.findNavController
 import com.maksimzotov.quiz.databinding.FragmentAuthenticationBinding
-import com.maksimzotov.quiz.model.appstate.AppState
 import com.maksimzotov.quiz.util.shortToast
 import com.maksimzotov.quiz.view.base.BaseFragment
 import com.maksimzotov.quiz.viewmodel.AuthenticationViewModel
@@ -41,15 +39,12 @@ class AuthenticationFragment :
     override fun handleData(data: Data) {
         when (data) {
             is RefusalTheName -> {
-                AppState.waitingForAcceptingTheName = false
+                viewModel.notifyThatResponseToNameWasReceived()
                 shortToast(activity, getString(R.string.the_name_P1_is_taken, data.name))
             }
             is AcceptingTheName -> {
-                AppState.waitingForAcceptingTheName = false
+                viewModel.notifyThatResponseToNameWasReceived()
                 findNavController().navigate(R.id.searchOnNameFragment)
-            }
-            else -> {
-                throw Exception("Incorrect data for the Authentication fragment")
             }
         }
     }

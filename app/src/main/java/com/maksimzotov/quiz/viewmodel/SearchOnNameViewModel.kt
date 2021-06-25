@@ -20,6 +20,10 @@ class SearchOnNameViewModel : BaseViewModel() {
         }
     }
 
+    fun notifyThatResponseToInvitationWasReceived() {
+        AppState.waitingForPlayTheGame = false
+    }
+
     fun changeName() {
         SenderToServer.sendData(NameChange())
     }

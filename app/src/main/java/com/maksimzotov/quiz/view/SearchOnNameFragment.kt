@@ -1,11 +1,9 @@
 package com.maksimzotov.quiz.view
 
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.maksimzotov.quiz.R
 import com.maksimzotov.quiz.databinding.FragmentSearchOnNameBinding
-import com.maksimzotov.quiz.model.appstate.AppState
 import com.maksimzotov.quiz.util.shortToast
 import com.maksimzotov.quiz.view.base.BaseFragment
 import com.maksimzotov.quiz.viewmodel.SearchOnNameViewModel
@@ -31,7 +29,7 @@ class SearchOnNameFragment :
                 data is InvitedPlayerIsDecidingWhetherToPlayWithAnotherPlayer ||
                 data is HardRemovalOfThePlayer
         ) {
-            AppState.waitingForPlayTheGame = false
+            viewModel.notifyThatResponseToInvitationWasReceived()
         }
         when (data) {
             is Invitation -> {
@@ -67,9 +65,6 @@ class SearchOnNameFragment :
                         activity,
                         getString(R.string.unknown_error_on_the_side_of_another_player)
                 )
-            }
-            else -> {
-                throw Exception("Incorrect data for the SearchOnName fragment")
             }
         }
     }

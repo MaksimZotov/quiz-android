@@ -1,5 +1,7 @@
 package com.maksimzotov.quiz.view
 
+import android.annotation.SuppressLint
+import android.graphics.Color
 import android.widget.Button
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -23,26 +25,22 @@ class GameFragment :
             viewModel = this@GameFragment.viewModel
             lifecycleOwner = viewLifecycleOwner
 
+            viewModel!!.onStart()
+
             giveAnswer.setBackgroundColor(resources.getColor(R.color.blue))
             giveAnswer.setOnClickListener {
                 if (viewModel!!.isAbleToGiveAnswer) {
                     if (viewModel!!.giveAnswer()) {
-                        giveAnswer.setBackgroundColor(
-                                resources.getColor(R.color.green)
-                        )
+                        giveAnswer.setBackgroundColor(resources.getColor(R.color.green))
                     } else {
-                        giveAnswer.setBackgroundColor(
-                                resources.getColor(R.color.red)
-                        )
+                        giveAnswer.setBackgroundColor(resources.getColor(R.color.red))
                     }
                 }
             }
 
 
             val listOfAnswerButtons = listOf(answer0, answer1, answer2)
-            listOfAnswerButtons.forEach {
-                it.setBackgroundColor(resources.getColor(R.color.blue))
-            }
+            listOfAnswerButtons.forEach { it.setBackgroundColor(resources.getColor(R.color.blue)) }
             val buttonAnswerFunction: (button: Button, index: Int) -> Unit = { button, index ->
                 if (viewModel!!.isAbleToGiveAnswer) {
                     viewModel!!.setAnswer(index)
@@ -62,6 +60,13 @@ class GameFragment :
 
     override fun handleData(data: Data) {
         when (data) {
+            is Question -> {
+                with(binding) {
+                    listOf(giveAnswer, answer0, answer1, answer2).forEach {
+                        it.setBackgroundColor(resources.getColor(R.color.blue))
+                    }
+                }
+            }
             is LeavingTheGame -> {
                 shortToast(
                         activity,

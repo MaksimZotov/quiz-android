@@ -37,7 +37,7 @@ class InvitationToPlayFragment :
                 data is PlayTheGame ||
                 data is ThePlayerWhoInvitedYouIsWaitingForAcceptingTheInvitationFromAnotherPlayer ||
                 data is IncorrectAcceptingTheInvitation || data is IncorrectRefusalTheInvitation ||
-                data is HardRemovalOfThePlayer || data is IncorrectRefusalTheInvitation
+                data is HardRemovalOfThePlayer
         ) {
             viewModel.notifyThatResponseToAcceptingTheInvitationWasReceived()
         }

@@ -12,7 +12,7 @@ class GameViewModel : BaseViewModel() {
     val secondAnswer: MutableLiveData<String> = MutableLiveData("")
     val thirdAnswer: MutableLiveData<String> = MutableLiveData("")
     val remainingTime: MutableLiveData<String> = MutableLiveData("")
-    val score: MutableLiveData<String> = MutableLiveData("")
+    val score: MutableLiveData<String> = MutableLiveData("0/0")
 
     var isAbleToGiveAnswer = false
 
@@ -24,6 +24,15 @@ class GameViewModel : BaseViewModel() {
 
     fun setAnswer(indexOfAnswer: Int) {
         this.indexOfAnswer = indexOfAnswer
+    }
+
+    fun onStart() {
+        question.value = ""
+        firstAnswer.value = ""
+        secondAnswer.value = ""
+        thirdAnswer.value = ""
+        remainingTime.value = ""
+        score.value = "0/0"
     }
 
     fun giveAnswer(): Boolean {
@@ -53,6 +62,7 @@ class GameViewModel : BaseViewModel() {
                 thirdAnswer.value = data.answers[2]
                 indexOfCorrectAnswer = data.indexOfCorrectAnswer
                 isAbleToGiveAnswer = true
+                this.data.value = data
             }
             is RemainingTime -> {
                 remainingTime.value = data.time.toString()

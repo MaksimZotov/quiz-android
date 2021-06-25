@@ -24,7 +24,7 @@ class SearchOnNameFragment :
 
     override fun handleData(data: Data) {
         if (
-                data is Invitation || data is PlayTheGame || data is RefusalToPlayAgain ||
+                data is Invitation || data is PlayTheGame || data is RefusalTheInvitation ||
                 data is IncorrectInvitation || data is InvitationMyself ||
                 data is InvitedPlayerIsDecidingWhetherToPlayWithAnotherPlayer ||
                 data is HardRemovalOfThePlayer

@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.maksimzotov.quiz.R
 import com.maksimzotov.quiz.util.ConnectionLostCallback
+import com.maksimzotov.quiz.util.shortToast
 import com.maksimzotov.quiz.viewmodel.base.BaseViewModel
 import data.Data
 import kotlinx.coroutines.Dispatchers
@@ -45,6 +46,7 @@ abstract class BaseFragment<VB: ViewBinding, VM: BaseViewModel>(
     private val connectivityCallback = object : ConnectionLostCallback() {
         override fun notifyThatConnectionLost() {
             viewModel.closeConnection()
+            shortToast(activity, getString(R.string.connection_lost))
             GlobalScope.launch(Dispatchers.Main) {
                 findNavController().popBackStack(R.id.authenticationFragment, false)
             }

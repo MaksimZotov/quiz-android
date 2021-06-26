@@ -15,6 +15,7 @@ class GameViewModel : BaseViewModel() {
     val score: MutableLiveData<String> = MutableLiveData("0/0")
 
     var isAbleToGiveAnswer = false
+    var answerIsSelected = false
 
     private var indexOfAnswer = -1
     private var indexOfCorrectAnswer = -2
@@ -24,6 +25,7 @@ class GameViewModel : BaseViewModel() {
 
     fun setAnswer(indexOfAnswer: Int) {
         this.indexOfAnswer = indexOfAnswer
+        answerIsSelected = true
     }
 
     fun onStart() {
@@ -62,6 +64,7 @@ class GameViewModel : BaseViewModel() {
                 thirdAnswer.value = data.answers[2]
                 indexOfCorrectAnswer = data.indexOfCorrectAnswer
                 isAbleToGiveAnswer = true
+                answerIsSelected = false
                 this.data.value = data
             }
             is RemainingTime -> {

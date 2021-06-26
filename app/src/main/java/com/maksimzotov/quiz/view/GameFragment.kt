@@ -29,7 +29,7 @@ class GameFragment :
 
             giveAnswer.setBackgroundColor(resources.getColor(R.color.blue))
             giveAnswer.setOnClickListener {
-                if (viewModel!!.isAbleToGiveAnswer) {
+                if (viewModel!!.isAbleToGiveAnswer && viewModel!!.answerIsSelected) {
                     if (viewModel!!.giveAnswer()) {
                         giveAnswer.setBackgroundColor(resources.getColor(R.color.green))
                     } else {

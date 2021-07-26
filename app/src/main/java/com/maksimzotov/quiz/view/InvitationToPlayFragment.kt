@@ -17,13 +17,13 @@ class InvitationToPlayFragment :
     override val viewModel: InvitationToPlayViewModel by viewModels()
 
     override fun assignBinding(binding: FragmentInvitationToPlayBinding) {
-        with(binding) {
-            viewModel = this@InvitationToPlayFragment.viewModel
-            doNotPlayWithAnotherPlayer.setOnClickListener {
-                viewModel!!.refuseTheInvitation()
+        binding.also { b ->
+            b.viewModel = viewModel
+            b.doNotPlayWithAnotherPlayer.setOnClickListener {
+                viewModel.refuseTheInvitation()
                 findNavController().popBackStack(R.id.searchOnNameFragment, false)
             }
-            doYouWantToPlay.text = getString(
+            b.doYouWantToPlay.text = getString(
                     R.string.do_you_want_to_play_with_the_player_P1,
                     viewModel!!.nameOfAnotherPlayer
             )

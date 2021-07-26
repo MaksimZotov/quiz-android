@@ -14,7 +14,7 @@ open class BaseViewModel: ViewModel(), DataObserver {
         SenderToServer.closeConnection()
     }
 
-    override fun subscribeOnObservableData() {
+    override fun subscribeOnDataObservable() {
         ReceiverFromServer.setObserver(this)
     }
 

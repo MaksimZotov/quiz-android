@@ -3,6 +3,7 @@ package com.maksimzotov.quiz.view.base
 import android.annotation.SuppressLint
 import android.content.Context
 import android.net.ConnectivityManager
+import android.net.Network
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,13 +14,9 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.maksimzotov.quiz.R
-import com.maksimzotov.quiz.util.ConnectionLostCallback
 import com.maksimzotov.quiz.util.shortToast
 import com.maksimzotov.quiz.viewmodel.base.BaseViewModel
 import data.Data
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 abstract class BaseFragment<VB: ViewBinding, VM: BaseViewModel>(
         private val inflate: (LayoutInflater, ViewGroup?, Boolean) -> VB
@@ -43,13 +40,11 @@ abstract class BaseFragment<VB: ViewBinding, VM: BaseViewModel>(
 
     private val handleDataObserver = Observer<Data> { data -> handleData(data) }
 
-    private val connectivityCallback = object : ConnectionLostCallback() {
-        override fun notifyThatConnectionLost() {
+    private val connectivityCallback = object : ConnectivityManager.NetworkCallback() {
+        override fun onLost(network: Network) {
             viewModel.closeConnection()
             shortToast(activity, getString(R.string.connection_lost))
-            GlobalScope.launch(Dispatchers.Main) {
-                findNavController().popBackStack(R.id.authenticationFragment, false)
-            }
+            findNavController().popBackStack(R.id.authenticationFragment, false)
         }
     }
 
@@ -87,7 +82,7 @@ abstract class BaseFragment<VB: ViewBinding, VM: BaseViewModel>(
     }
 
     private fun observeDataFromServer() {
-        viewModel.subscribeOnObservableData()
+        viewModel.subscribeOnDataObservable()
         viewModel.data.observe(viewLifecycleOwner, handleDataObserver)
     }
 }

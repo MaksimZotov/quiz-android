@@ -17,8 +17,8 @@ class SearchOnNameFragment :
     override val viewModel: SearchOnNameViewModel by viewModels()
 
     override fun assignBinding(binding: FragmentSearchOnNameBinding) {
-        with(binding) {
-            viewModel = this@SearchOnNameFragment.viewModel
+        binding.also { b ->
+            b.viewModel = viewModel
         }
     }
 

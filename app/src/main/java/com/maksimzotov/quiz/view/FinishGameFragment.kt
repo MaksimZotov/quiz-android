@@ -17,12 +17,12 @@ class FinishGameFragment :
     override val viewModel: FinishGameViewModel by viewModels()
 
     override fun assignBinding(binding: FragmentFinishGameBinding) {
-        with(binding) {
-            viewModel = this@FinishGameFragment.viewModel
-            chooseAnotherPlayerAfterFinish.setOnClickListener {
+        binding.also { b ->
+            b.viewModel = viewModel
+            b.chooseAnotherPlayerAfterFinish.setOnClickListener {
                 onBackPressed()
             }
-            finishText.text = getString(
+            b.finishText.text = getString(
                     R.string.finish_your_score_P1_score_of_another_player_P2_P3,
                     viewModel!!.playerScore,
                     viewModel!!.nameOfAnotherPlayer,

@@ -18,16 +18,17 @@ class GameFragment :
     override val viewModel: GameViewModel by viewModels()
 
     override fun assignBinding(binding: FragmentGameBinding) {
-        with(binding) {
-            viewModel = this@GameFragment.viewModel
-            lifecycleOwner = viewLifecycleOwner
+        binding.also { b ->
+            b.viewModel = viewModel
+            b.lifecycleOwner = viewLifecycleOwner
 
-            viewModel!!.onStart()
+            viewModel.onStart()
 
+            val giveAnswer = b.giveAnswer
             giveAnswer.setBackgroundColor(resources.getColor(R.color.blue))
             giveAnswer.setOnClickListener {
-                if (viewModel!!.isAbleToGiveAnswer && viewModel!!.answerIsSelected) {
-                    if (viewModel!!.giveAnswer()) {
+                if (viewModel.isAbleToGiveAnswer && viewModel.answerIsSelected) {
+                    if (viewModel.giveAnswer()) {
                         giveAnswer.setBackgroundColor(resources.getColor(R.color.green))
                     } else {
                         giveAnswer.setBackgroundColor(resources.getColor(R.color.red))
@@ -35,12 +36,11 @@ class GameFragment :
                 }
             }
 
-
-            val listOfAnswerButtons = listOf(answer0, answer1, answer2)
+            val listOfAnswerButtons = listOf(b.answer0, b.answer1, b.answer2)
             listOfAnswerButtons.forEach { it.setBackgroundColor(resources.getColor(R.color.blue)) }
             val buttonAnswerFunction: (button: Button, index: Int) -> Unit = { button, index ->
-                if (viewModel!!.isAbleToGiveAnswer) {
-                    viewModel!!.setAnswer(index)
+                if (viewModel.isAbleToGiveAnswer) {
+                    viewModel.setAnswer(index)
                     button.setBackgroundColor(resources.getColor(R.color.yellow))
                     listOfAnswerButtons.forEach {
                         if (it != button) {

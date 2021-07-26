@@ -35,7 +35,6 @@ android {
 
     dataBinding {
         enabled true
-        version '3.5.0'
     }
 }
 

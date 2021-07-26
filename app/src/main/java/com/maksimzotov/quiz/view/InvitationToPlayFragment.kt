@@ -1,11 +1,9 @@
 package com.maksimzotov.quiz.view
 
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.maksimzotov.quiz.R
 import com.maksimzotov.quiz.databinding.FragmentInvitationToPlayBinding
-import com.maksimzotov.quiz.model.appstate.AppState
 import com.maksimzotov.quiz.util.shortToast
 import com.maksimzotov.quiz.view.base.BaseFragment
 import com.maksimzotov.quiz.viewmodel.InvitationToPlayViewModel
@@ -35,7 +33,7 @@ class InvitationToPlayFragment :
     override fun handleData(data: Data) {
         if (
                 data is PlayTheGame ||
-                data is ThePlayerWhoInvitedYouIsWaitingForAcceptingTheInvitationFromAnotherPlayer ||
+                data is PlayerWhoInvitedYouIsWaitingForAcceptingTheInvitationFromAnotherPlayer ||
                 data is IncorrectAcceptingTheInvitation || data is IncorrectRefusalTheInvitation ||
                 data is HardRemovalOfThePlayer
         ) {
@@ -45,7 +43,7 @@ class InvitationToPlayFragment :
             is PlayTheGame -> {
                 findNavController().navigate(R.id.gameFragment)
             }
-            is ThePlayerWhoInvitedYouIsWaitingForAcceptingTheInvitationFromAnotherPlayer -> {
+            is PlayerWhoInvitedYouIsWaitingForAcceptingTheInvitationFromAnotherPlayer -> {
                 shortToast(
                         activity,
                         getString(

@@ -24,9 +24,9 @@ class FinishGameFragment :
             }
             b.finishText.text = getString(
                     R.string.finish_your_score_P1_score_of_another_player_P2_P3,
-                    viewModel!!.playerScore,
-                    viewModel!!.nameOfAnotherPlayer,
-                    viewModel!!.scoreOfAnotherPlayer
+                    viewModel.playerScore,
+                    viewModel.nameOfAnotherPlayer,
+                    viewModel.scoreOfAnotherPlayer
             )
         }
     }

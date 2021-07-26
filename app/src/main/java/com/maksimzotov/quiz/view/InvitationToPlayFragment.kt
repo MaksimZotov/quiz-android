@@ -25,7 +25,7 @@ class InvitationToPlayFragment :
             }
             b.doYouWantToPlay.text = getString(
                     R.string.do_you_want_to_play_with_the_player_P1,
-                    viewModel!!.nameOfAnotherPlayer
+                    viewModel.nameOfAnotherPlayer
             )
         }
     }

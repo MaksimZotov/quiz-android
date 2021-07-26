@@ -74,9 +74,9 @@ class GameViewModel : BaseViewModel() {
             }
             is Score -> {
                 check(
-                        data.playerNameToScore.contains(AppState.playerName) &&
-                        data.playerNameToScore.contains(AppState.nameOfAnotherPlayer) &&
-                        data.playerNameToScore.size == 2
+                    data.playerNameToScore.contains(AppState.playerName) &&
+                    data.playerNameToScore.contains(AppState.nameOfAnotherPlayer) &&
+                    data.playerNameToScore.size == 2
                 )
 
                 playerScore = data.playerNameToScore[AppState.playerName]!!

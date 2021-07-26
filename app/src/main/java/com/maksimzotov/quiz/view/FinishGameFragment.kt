@@ -4,7 +4,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.maksimzotov.quiz.R
 import com.maksimzotov.quiz.databinding.FragmentFinishGameBinding
-import com.maksimzotov.quiz.model.appstate.AppState
 import com.maksimzotov.quiz.util.shortToast
 import com.maksimzotov.quiz.view.base.BaseFragment
 import com.maksimzotov.quiz.viewmodel.FinishGameViewModel
@@ -48,7 +47,7 @@ class FinishGameFragment :
 
             }
             is HardRemovalOfThePlayer -> {
-                AppState.waitingForPlayTheGame = false
+                viewModel.notifyThatResponseToRequestToPlayAgainWasReceived()
                 shortToast(
                         activity,
                         getString(R.string.unknown_error_on_the_side_of_another_player)

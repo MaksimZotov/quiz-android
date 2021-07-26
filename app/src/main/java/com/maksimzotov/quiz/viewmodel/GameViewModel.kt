@@ -7,6 +7,8 @@ import com.maksimzotov.quiz.viewmodel.base.BaseViewModel
 import data.*
 
 class GameViewModel : BaseViewModel() {
+    val nameOfAnotherPlayer get() = AppState.nameOfAnotherPlayer
+
     val question: MutableLiveData<String> = MutableLiveData("")
     val firstAnswer: MutableLiveData<String> = MutableLiveData("")
     val secondAnswer: MutableLiveData<String> = MutableLiveData("")

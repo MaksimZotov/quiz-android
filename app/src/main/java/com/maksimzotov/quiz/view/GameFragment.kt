@@ -1,13 +1,10 @@
 package com.maksimzotov.quiz.view
 
-import android.annotation.SuppressLint
-import android.graphics.Color
 import android.widget.Button
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.maksimzotov.quiz.R
 import com.maksimzotov.quiz.databinding.FragmentGameBinding
-import com.maksimzotov.quiz.model.appstate.AppState
 import com.maksimzotov.quiz.util.shortToast
 import com.maksimzotov.quiz.view.base.BaseFragment
 import com.maksimzotov.quiz.viewmodel.GameViewModel
@@ -72,7 +69,7 @@ class GameFragment :
                         activity,
                         getString(
                                 R.string.the_player_P1_has_left_the_game,
-                                AppState.nameOfAnotherPlayer
+                                viewModel.nameOfAnotherPlayer
                         )
                 )
                 findNavController().popBackStack(R.id.searchOnNameFragment, false)

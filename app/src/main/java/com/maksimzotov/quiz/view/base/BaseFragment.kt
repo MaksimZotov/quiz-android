@@ -11,12 +11,14 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.maksimzotov.quiz.R
 import com.maksimzotov.quiz.util.shortToast
 import com.maksimzotov.quiz.viewmodel.base.BaseViewModel
 import data.Data
+import kotlinx.coroutines.launch
 
 abstract class BaseFragment<VB: ViewBinding, VM: BaseViewModel>(
         private val inflate: (LayoutInflater, ViewGroup?, Boolean) -> VB
@@ -44,7 +46,9 @@ abstract class BaseFragment<VB: ViewBinding, VM: BaseViewModel>(
         override fun onLost(network: Network) {
             viewModel.closeConnection()
             shortToast(activity, getString(R.string.connection_lost))
-            findNavController().popBackStack(R.id.authenticationFragment, false)
+            lifecycleScope.launch {
+                findNavController().popBackStack(R.id.authenticationFragment, false)
+            }
         }
     }
 

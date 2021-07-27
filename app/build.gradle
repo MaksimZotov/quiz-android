@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "com.maksimzotov.quiz"
-        minSdkVersion 19
+        minSdkVersion 24
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -35,7 +35,6 @@ android {
 
     dataBinding {
         enabled true
-        version '3.5.0'
     }
 }
 

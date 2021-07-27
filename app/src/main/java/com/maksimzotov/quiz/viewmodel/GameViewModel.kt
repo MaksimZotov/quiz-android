@@ -7,6 +7,8 @@ import com.maksimzotov.quiz.viewmodel.base.BaseViewModel
 import data.*
 
 class GameViewModel : BaseViewModel() {
+    val nameOfAnotherPlayer get() = AppState.nameOfAnotherPlayer
+
     val question: MutableLiveData<String> = MutableLiveData("")
     val firstAnswer: MutableLiveData<String> = MutableLiveData("")
     val secondAnswer: MutableLiveData<String> = MutableLiveData("")
@@ -72,9 +74,9 @@ class GameViewModel : BaseViewModel() {
             }
             is Score -> {
                 check(
-                        data.playerNameToScore.contains(AppState.playerName) &&
-                        data.playerNameToScore.contains(AppState.nameOfAnotherPlayer) &&
-                        data.playerNameToScore.size == 2
+                    data.playerNameToScore.contains(AppState.playerName) &&
+                    data.playerNameToScore.contains(AppState.nameOfAnotherPlayer) &&
+                    data.playerNameToScore.size == 2
                 )
 
                 playerScore = data.playerNameToScore[AppState.playerName]!!

@@ -29,7 +29,7 @@ class Server {
         output.close()
     }
 
-    fun sendDataToServer(data: Data) {
+    suspend fun sendDataToServer(data: Data) {
         sender.sendDataToServer(data)
     }
 

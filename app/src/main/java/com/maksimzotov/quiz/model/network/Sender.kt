@@ -1,27 +1,17 @@
 package com.maksimzotov.quiz.model.network
 
 import data.Data
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import java.io.ObjectOutputStream
 
-class Sender(private val outputStream: ObjectOutputStream) : Thread() {
-    private var runWasLaunchedFromStart = true
-    private lateinit var data: Data
+class Sender(private val outputStream: ObjectOutputStream) {
+    val mutex = Mutex()
 
-    init {
-        start()
-    }
-
-    override fun run() {
-        if (runWasLaunchedFromStart) {
-            runWasLaunchedFromStart = false
-            return
+    suspend fun sendDataToServer(data: Data) {
+        mutex.withLock {
+            outputStream.writeObject(data)
+            outputStream.flush()
         }
-        outputStream.writeObject(data)
-        outputStream.flush()
-    }
-
-    fun sendDataToServer(data: Data) {
-        this.data = data
-        run()
     }
 }

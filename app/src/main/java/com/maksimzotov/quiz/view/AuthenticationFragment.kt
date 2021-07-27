@@ -22,15 +22,15 @@ class AuthenticationFragment :
     override val viewModel: AuthenticationViewModel by viewModels()
 
     override fun assignBinding(binding: FragmentAuthenticationBinding) {
-        with(binding) {
-            viewModel = this@AuthenticationFragment.viewModel
-            goToChooseNameOfAnotherPlayer.setOnClickListener {
+        binding.also { b ->
+            b.viewModel = viewModel
+            b.goToChooseNameOfAnotherPlayer.setOnClickListener {
                 val cm = requireActivity()
                         .getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
                 val capabilities = cm.getNetworkCapabilities(cm.activeNetwork)
                 val connected = capabilities?.hasCapability(NET_CAPABILITY_INTERNET) == true
                 if (connected) {
-                    viewModel!!.sendPlayerName()
+                    viewModel.sendPlayerName()
                 }
             }
         }

@@ -1,13 +1,10 @@
 package com.maksimzotov.quiz.view
 
-import android.annotation.SuppressLint
-import android.graphics.Color
 import android.widget.Button
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.maksimzotov.quiz.R
 import com.maksimzotov.quiz.databinding.FragmentGameBinding
-import com.maksimzotov.quiz.model.appstate.AppState
 import com.maksimzotov.quiz.util.shortToast
 import com.maksimzotov.quiz.view.base.BaseFragment
 import com.maksimzotov.quiz.viewmodel.GameViewModel
@@ -21,16 +18,17 @@ class GameFragment :
     override val viewModel: GameViewModel by viewModels()
 
     override fun assignBinding(binding: FragmentGameBinding) {
-        with(binding) {
-            viewModel = this@GameFragment.viewModel
-            lifecycleOwner = viewLifecycleOwner
+        binding.also { b ->
+            b.viewModel = viewModel
+            b.lifecycleOwner = viewLifecycleOwner
 
-            viewModel!!.onStart()
+            viewModel.onStart()
 
+            val giveAnswer = b.giveAnswer
             giveAnswer.setBackgroundColor(resources.getColor(R.color.blue))
             giveAnswer.setOnClickListener {
-                if (viewModel!!.isAbleToGiveAnswer && viewModel!!.answerIsSelected) {
-                    if (viewModel!!.giveAnswer()) {
+                if (viewModel.isAbleToGiveAnswer && viewModel.answerIsSelected) {
+                    if (viewModel.giveAnswer()) {
                         giveAnswer.setBackgroundColor(resources.getColor(R.color.green))
                     } else {
                         giveAnswer.setBackgroundColor(resources.getColor(R.color.red))
@@ -38,12 +36,11 @@ class GameFragment :
                 }
             }
 
-
-            val listOfAnswerButtons = listOf(answer0, answer1, answer2)
+            val listOfAnswerButtons = listOf(b.answer0, b.answer1, b.answer2)
             listOfAnswerButtons.forEach { it.setBackgroundColor(resources.getColor(R.color.blue)) }
             val buttonAnswerFunction: (button: Button, index: Int) -> Unit = { button, index ->
-                if (viewModel!!.isAbleToGiveAnswer) {
-                    viewModel!!.setAnswer(index)
+                if (viewModel.isAbleToGiveAnswer) {
+                    viewModel.setAnswer(index)
                     button.setBackgroundColor(resources.getColor(R.color.yellow))
                     listOfAnswerButtons.forEach {
                         if (it != button) {
@@ -72,7 +69,7 @@ class GameFragment :
                         activity,
                         getString(
                                 R.string.the_player_P1_has_left_the_game,
-                                AppState.nameOfAnotherPlayer
+                                viewModel.nameOfAnotherPlayer
                         )
                 )
                 findNavController().popBackStack(R.id.searchOnNameFragment, false)

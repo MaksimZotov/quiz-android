@@ -12,7 +12,7 @@ Also you should know that questions and answers are taken from an external datab
 You can change the database [here](https://github.com/MaksimZotov/quiz-server/blob/master/src/main/kotlin/questions/Database.kt)
 # Video
 A link to the [video](https://youtu.be/-rFHFjvCmCM)
-# Built with:
+# Built with
 MVVM<br/>
 LiveData<br/>
 DataBinding<br/>

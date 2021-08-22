@@ -11,11 +11,11 @@ Personally, I deployed the server on [Google Cloud Compute Engine](https://cloud
 Also you should know that questions and answers are taken from an external database.<br/>
 You can change the database [here](https://github.com/MaksimZotov/quiz-server/blob/master/src/main/kotlin/questions/Database.kt)
 # Video
-A link to the [video](https://youtu.be/-rFHFjvCmCM)
+[![](https://img.youtube.com/vi/-rFHFjvCmCM/hqdefault.jpg)](https://youtu.be/-rFHFjvCmCM))
 # Built with
-MVVM<br/>
-LiveData<br/>
-DataBinding<br/>
-Navigation Component<br/>
-Google Cloud Compute Engine<br/>
-MySQL Database (I used [sprinthost](https://cp.sprinthost.ru))
+- MVVM<br/>
+- LiveData<br/>
+- DataBinding<br/>
+- Navigation Component<br/>
+- Google Cloud Compute Engine<br/>
+- MySQL Database (I used [sprinthost](https://cp.sprinthost.ru))
